@@ -5,21 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document Title</title>
-    <link href="style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 <body>
-    <input type="text" id="search" value="logicweb">
-    <button type="button" onclick="userAction()">Fetch</button>
-    <div id="root">
-        <div class="container">
-            <div class="card" id="details"></div>
-            <div class="card" id="prefixes"></div>
-            <div class="card" id="peers"></div>
-            <div class="card" id="upstreams"></div>
-            <div class="card" id="downstreams"></div>
-            <div class="card" id="ixs"></div>
-        </div>
-    </div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 p-2 text-center">
+				<input type="text" id="search" value="logicweb" style="width:400px; padding:5px;">
+				<button type="button" onclick="userAction()" style="height:38px; width:80px;">Fetch</button>
+			</div>
+		</div>
+		<div class="row p-2">
+			<div class="card">
+			  <div class="card-body col-12">
+				<h5 class="card-title">ASN Details</h5>
+				<div id="details"></div>
+			  </div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="prefixes" class="col-12 p-2">
+				<div class="accordion" id="accordionPrefixes">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+								<a class="d-block" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" data-parent="#accordionPrefixes">
+								  Prefixes
+								</a>
+							</h2>
+						</div>
+						<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+						  <div class="card-body">
+							<div style="overflow:auto; max-height:400px;">
+								<table class="table table-bordered" id="prefixTable">
+								  <thead class="thead-dark">
+									<tr>
+									  <th scope="col">prefix</th>
+									  <th scope="col">ip</th>
+									  <th scope="col">cidr</th>
+									  <th scope="col">name</th>
+									  <th scope="col">country</th>
+									  <th scope="col">description</th>
+									  <th scope="col">emails</th>
+									  <th scope="col">abuse</th>
+									  <th scope="col">rir name</th>
+									  <th scope="col">parent prefix</th>
+									  <th scope="col">parent ip</th>
+									  <th scope="col">parent cidr</th>
+									</tr>
+								  </thead>
+								  <tbody>
+								  </tbody>
+								</table>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="peers" class="col-12 p-2">
+				<div class="accordion" id="accordionPeers">
+					<div class="card">
+						<div class="card-header" id="headingTwo">
+							<h5 class="mb-0">
+								<a class="d-block" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-parent="#accordionPeers">
+								  Peers
+								</a>
+							</h2>
+						</div>
+						<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+						  <div class="card-body">
+							<div style="overflow:auto; max-height:400px;">
+								<table class="table table-bordered" id="peersTable">
+								  <thead class="thead-dark">
+									<tr>
+									  <th scope="col">ASN</th>
+									  <th scope="col">Name</th>
+									  <th scope="col">Description</th>
+									  <th scope="col">Country</th>
+									</tr>
+								  </thead>
+								  <tbody>
+								  </tbody>
+								</table>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="upstreams"></div>
+		</div>
+		<div class="row">
+			<div id="downstreams"></div>
+		</div>
+		<div class="row">
+			<div id="ixs"></div>
+		</div>
+	</div>
 </body>
 </html>
 <script src="scripts.js"></script>

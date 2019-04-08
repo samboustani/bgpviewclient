@@ -61,8 +61,12 @@ const userAction = async() => {
         model.ipv6_prefixes = temp.data.ipv6_prefixes;
     }
 
-    ip_prefixes.innerText = JSON.stringify(model.ipv4_prefixes) + JSON.stringify(model.ipv6_prefixes);
-    
+	var prefixTable = $("#prefixTable").find('tbody');
+	
+    model.ipv4_prefixes.forEach(function(item) {
+		prefixTable.append(`<tr><td>${item.prefix}</td><td>${item.ip}</td><td>${item.cidr}</td><td>${item.name}</td><td>${item.country_code}</td><td>${item.description}</td><td>${item.email_contacts}</td><td>${item.abuse_contacts}</td><td>${item.rir_name}</td><td>${item.parent_prefix}</td><td>${item.parent_ip}</td><td>${item.parent_cidr}</td></tr>`);
+	});
+
     // Peers
     response = await fetch('https://api.bgpview.io/asn/' + model.asns[0].asn + '/peers');
     temp = await response.json();
