@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document Title</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <input type="text" id="search" value="logicweb">
+    <button type="button" onclick="userAction()">Fetch</button>
+    <div id="root">
+        <div class="container">
+            <div class="card" id="details"></div>
+            <div class="card" id="prefixes"></div>
+            <div class="card" id="peers"></div>
+            <div class="card" id="upstreams"></div>
+            <div class="card" id="downstreams"></div>
+            <div class="card" id="ixs"></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="scripts.js"></script>
+<script>
+    window.onload = load;
+</script>
