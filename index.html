@@ -13,11 +13,11 @@
     <script
       src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
       crossorigin="anonymous"></script>
+      <script
+        src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+        crossorigin="anonymous"></script>
     <script
       src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"
-      crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
       crossorigin="anonymous"></script>
     <script src="autogrow.min.js"></script>
     <script src="bgp_scripts.js"></script>
@@ -33,18 +33,15 @@
             type="button"
             class="navbar-toggle"
             data-toggle="collapse"
-            data-target="#navbar-collapse"
-          >
+            data-target="#navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="https://bgpview.io"
-            ><img
-              src="https://bgpview.io/assets/logo_white.png"
-              alt="Logo Header"
-          /></a>
+          <a class="navbar-brand" href="https://bgpview.io">
+            <img src="https://bgpview.io/assets/logo_white.png"
+              alt="Logo Header" /></a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -56,8 +53,7 @@
                   placeholder="Name, ASN, IP, Prefix"
                   name="query_term"
                   id="query-term"
-                  ng-model="queryTerm"
-                />
+                  ng-model="queryTerm" />
                 <div class="input-group-btn">
                   <button class="btn btn-default" ng-click="search()">
                     <i class="glyphicon glyphicon-search"></i>
@@ -78,9 +74,8 @@
                 class="pull-left title-flag"
                 src="https://bgpview.io/assets/flags/shiny/64/{{model.asn.rir_allocation.country_code}}.png"
                 alt="{{model.asn.rir_allocation.country_code}}"
-                title="{{model.asn.rir_allocation.country_code}}"
-              />
-              <div class="title-text pull-left ">
+                title="{{model.asn.rir_allocation.country_code}}" />
+              <div class="title-text pull-left">
                 <h2>{{model.asn.description_short}}</h2>
                 <h4>AS{{model.asn.asn}} ~ {{model.asn.name}}</h4>
               </div>
@@ -118,8 +113,9 @@
                       <li>
                         <a id="nav-upstreams" href="#upstreams-v4">Upstreams</a>
                       </li>
+                      <li><a id="nav-downstreams" href="#downstreams-v4">Downstreams</a></li>
                       <li><a id="nav-graph" href="#graph">Graphs</a></li>
-                      <!-- <li><a id="nav-whois" href="#whois">Raw Whois</a></li> -->
+                      <li><a id="nav-whois" href="#whois">Raw Whois</a></li>
                     </ul>
                   </div>
                 </div>
@@ -235,7 +231,7 @@
                         role="tab"
                         data-toggle="tab">IPv4 Prefixes</a>
                     </li>
-                    <li role="presentation" ><a href="#table-prefixes-v6" aria-controls="table-prefixes-v6" role="tab" data-toggle="tab">IPv6 Prefixes</a></li>
+                    <li role="presentation"><a href="#table-prefixes-v6" aria-controls="table-prefixes-v6" role="tab" data-toggle="tab">IPv6 Prefixes</a></li>
                   </ul>
 
                   <div class="tab-content">
@@ -538,9 +534,31 @@
                   <ul
                     class="nav nav-tabs"
                     role="tablist"
-                    id="downstreams-tabs"
-                  ></ul>
-                  <div class="tab-content"></div>
+                    id="downstreams-tabs">
+                    <li role="presentation" class="active"><a href="#table-downstreams-v4" aria-controls="table-downstreams-v4" role="tab" data-toggle="tab">IPv4 Downstreams</a></li>
+                  </ul>
+                  <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="table-downstreams-v4">
+                          <table class="table table-hover">
+                              <thead>
+                              <tr>
+                                  <th>Country</th>
+                                  <th>ASN</th>
+                                  <th class="hidden-xs">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <!-- <tr>
+                                    <td class="flag"><img src="https://bgpview.io/assets/flags/shiny/32/US.png" title="United States" alt="United States (US) Flag" /></td>
+                                    <td><a href="https://bgpview.io/asn/46652">AS46652</a></td>
+                                    <td class="hidden-xs">SERVERSTACK-ASN</td>
+                                    <td>ServerStack, Inc.</td>
+                                  </tr> -->
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
                 </div>
                 <div
                   id="content-graph"
@@ -549,9 +567,9 @@
                   <div class="loader">Loading...</div>
                   <center><h2>Loading...</h2></center>
                 </div>
-                <!-- <div id="content-whois" class="col-sm-10 box hidden">
+                <div id="content-whois" class="col-sm-10 box hidden">
                   <pre></pre>
-                </div> -->
+                </div>
                 <div id="content-ix" class="col-sm-10 box hidden">
                   <div role="tabpanel" class="tab-pane active" id="table-ix">
                     <table class="table table-hover">
