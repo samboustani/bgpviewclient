@@ -31,24 +31,7 @@ const userAction = async() => {
         ipv6_downstreams: [],
         ixs: []
     };
-    var search = document.getElementById('search');    
-
-    if (isNaN(search)) {
-        // text search
-        response = await fetch('https://api.bgpview.io/search?query_term=' + search.value);
-        temp = await response.json();
-        model.asns = temp.data.asns;
-        model.ipv4_prefixes = temp.data.ipv4_prefixes;
-        model.ipv6_prefixes = temp.data.ipv6_prefixes;
-    }
-    else {
-        if (search.value.toString().length === 5) {
-            // ASN search
-            response = await fetch('https://api.bgpview.io/asn/' + search.value);
-            temp = await response.json();
-            model.asns.push(temp.data);
-        }        
-    }
+    
 
     // ASN details
     asn_details.innerText = JSON.stringify(model.asns[0]);
