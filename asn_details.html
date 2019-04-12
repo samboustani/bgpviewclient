@@ -1,0 +1,509 @@
+<div class="container main" ng-controller="details">
+  <div class="resource-details" ng-show="model.asn.asn != null">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="header-bar">
+          <img
+            class="pull-left title-flag"
+            src="https://bgpview.io/assets/flags/shiny/64/{{model.asn.rir_allocation.country_code}}.png"
+            alt="{{model.asn.rir_allocation.country_code}}"
+            title="{{model.asn.rir_allocation.country_code}}" />
+          <div class="title-text pull-left">
+            <h2>{{model.asn.description_short}}</h2>
+            <h4>AS{{model.asn.asn}} ~ {{model.asn.name}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="subheader-bar">
+          <div class="row">
+            <div class="col-sm-3"><strong>IPv4 Addresses:</strong> {{model.ipv4_prefixes.length}}</div>
+            <div class="col-sm-3"><strong>Number of Peers:</strong> {{model.asn_ip4peers.length}}</div>
+            <div class="col-sm-3">
+              <strong>Number of Prefixes:</strong> {{model.asn_ip4prefixes.length}}
+            </div>
+            <div class="col-sm-3">
+              <strong>ASN Allocated:</strong> {{model.asn.rir_allocation.date_allocated | date: 'mediumDate'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="resource-content">
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="side-nav">
+                <ul>
+                  <li><a id="nav-info" href="#info">ASN</a></li>
+                  <li>
+                    <a id="nav-prefixes" href="#prefixes-v4">Prefixes</a>
+                  </li>
+                  <li><a id="nav-peers" href="#peers-v4">Peers</a></li>
+                  <li>
+                    <a id="nav-upstreams" href="#upstreams-v4">Upstreams</a>
+                  </li>
+                  <li><a id="nav-downstreams" href="#downstreams-v4">Downstreams</a></li>
+                  <li><a id="nav-graph" href="#graph">Graphs</a></li>
+                  <li><a id="nav-whois" href="#whois">Raw Whois</a></li>
+                </ul>
+              </div>
+            </div>
+            <div id="content-info" class="col-sm-10 box hidden">
+              <h3>Summary</h3>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="line-info">
+                    <h4 class="inline">Regional Registry:</h4>
+                    <span>{{model.asn.rir_allocation.rir_name}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">Allocation Status:</h4>
+                    <span>
+                      {{model.asn.rir_allocation.allocation_status | uppercase}}
+                    </span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">Allocation Date:</h4>
+                    <span>{{model.asn.rir_allocation.date_allocated | date: 'mediumDate'}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">Allocated Country:</h4>
+                    <span>
+                      <img
+                        src="https://bgpview.io/assets/flags/shiny/24/{{model.asn.rir_allocation.country_code}}.png"
+                        alt="{{model.asn.rir_allocation.country_code}}"
+                        title="{{model.asn.rir_allocation.country_code}}" />
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6"></div>
+              </div>
+              <hr />
+              <h3>Network</h3>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="line-info">
+                    <h4 class="inline">IPv4 Prefixes:</h4>
+                    <span>{{model.asn_ip4prefixes.length}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">IPv4 Peers:</h4>
+                    <span>{{model.asn_ip4peers.length}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">IPv4 Upstreams:</h4>
+                    <span>{{model.asn_ip4upstreams.length}}</span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="line-info">
+                    <h4 class="inline">IPv6 Prefixes:</h4>
+                    <span>{{model.asn_ip6prefixes.length}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">IPv6 Peers:</h4>
+                    <span>{{model.asn_ip6peers.length}}</span>
+                  </div>
+                  <div class="line-info">
+                    <h4 class="inline">IPv6 Upstreams:</h4>
+                    <span>{{model.asn_ip6upstreams.length}}</span>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <h3 class="hidden-xs">Contacts</h3>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="line-info">
+                    <h4>Email Contacts:</h4>
+                    <div ng-repeat="email in model.asn.email_contacts">
+                      <span>{{email}}</span>
+                    </div>
+                  </div>
+                </div>
+                <hr class="visible-xs" />
+                <div class="col-sm-4">
+                  <div class="line-info">
+                    <h4>Abuse Contacts:</h4>
+                    <div ng-repeat="email in model.asn.abuse_contacts">
+                        <span>{{email}}</span>
+                    </div>
+                  </div>
+                </div>
+                <hr class="visible-xs" />
+                <div class="col-sm-4">
+                  <div class="line-info">
+                    <h4>Address:</h4>
+                    <div ng-repeat="address in model.asn.owner_address">
+                        {{address}}{{$last ? '' : ','}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="content-prefixes" class="col-sm-10 box hidden">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id="prefixes-tabs">
+                <li role="presentation" class="active">
+                  <a href="#table-prefixes-v4"
+                    aria-controls="table-prefixes-v4"
+                    role="tab"
+                    data-toggle="tab">IPv4 Prefixes</a>
+                </li>
+                <li role="presentation"><a href="#table-prefixes-v6" aria-controls="table-prefixes-v6" role="tab" data-toggle="tab">IPv6 Prefixes</a></li>
+              </ul>
+              <div class="tab-content">
+                <div
+                  role="tabpanel"
+                  class="tab-pane active"
+                  id="table-prefixes-v4">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>
+                          <span class="hidden-xs">Announced </span>Prefix
+                        </th>
+                        <th>Description</th>
+                        <th class="hidden-xs">Valid ROA</th>
+                        <th class="hidden-xs">Parent Prefix</th>
+                        <th class="hidden-sm hidden-xs">RIR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="prefix in model.asn_ip4prefixes">
+                        <td class="flag">
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                            title="{{prefix.country_code}}"
+                            alt="{{prefix.country_code}}" />
+                        </td>
+                        <td>
+                            {{prefix.prefix}}
+                        </td>
+                        <td>{{prefix.description}}</td>
+                        <td class="hidden-xs">
+                          <span
+                            class="fa fa-question"
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="hidden-xs">
+                            {{prefix.parent.prefix}}
+                        </td>
+                        <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div role="tabpanel" class="tab-pane " id="table-prefixes-v6">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th><span class="hidden-xs">Announced </span>Prefix</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">Valid ROA</th>
+                            <th class="hidden-xs">Parent Prefix</th>
+                            <th class="hidden-sm hidden-xs">RIR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="prefix in model.asn_ip6prefixes">
+                                <td class="flag">
+                                  <img
+                                    src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                                    title="{{prefix.country_code}}"
+                                    alt="{{prefix.country_code}}" />
+                                </td>
+                                <td>
+                                    {{prefix.prefix}}
+                                </td>
+                                <td>{{prefix.description}}</td>
+                                <td class="hidden-xs">
+                                  <span
+                                    class="fa fa-question"
+                                    aria-hidden="true"></span>
+                                </td>
+                                <td class="hidden-xs">
+                                    {{prefix.parent.prefix}}
+                                </td>
+                                <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
+                              </tr>
+                          </tbody>
+                        </table>
+                    </div>
+              </div>
+            </div>
+            <div id="content-peers" class="col-sm-10 box hidden">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id="peers-tabs">
+                <li role="presentation" class="active">
+                  <a
+                    href="#table-peers-v4"
+                    aria-controls="table-peers-v4"
+                    role="tab"
+                    data-toggle="tab">IPv4 Peers</a>
+                </li>
+                <li role="presentation" ><a href="#table-peers-v6" aria-controls="table-peers-v6" role="tab" data-toggle="tab">IPv6 Peers</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div
+                  role="tabpanel"
+                  class="tab-pane active"
+                  id="table-peers-v4">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>ASN</th>
+                        <th class="hidden-xs">Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="peer in model.asn_ip4peers">
+                        <td class="flag">
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code}}.png"
+                            title="{{peer.country_code}}"
+                            alt="{{peer.country_code}}" />
+                        </td>
+                        <td>
+                            {{peer.asn}}
+                        </td>
+                        <td class="hidden-xs">{{peer.name}}</td>
+                        <td>{{peer.description}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div role="tabpanel" class="tab-pane " id="table-peers-v6">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">IPv4</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="peer in model.asn_ip6peers">
+                                <td class="flag">
+                                  <img
+                                    src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code}}.png"
+                                    title="{{peer.country_code}}"
+                                    alt="{{peer.country_code}}" />
+                                </td>
+                                <td>
+                                    {{peer.asn}}
+                                </td>
+                                <td class="hidden-xs">{{peer.name}}</td>
+                                <td>{{peer.description}}</td>
+                              </tr>
+                          </tbody>
+                        </table>
+                    </div>
+              </div>
+            </div>
+            <div id="content-upstreams" class="col-sm-10 box hidden">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id="upstreams-tabs">
+                <li role="presentation" class="active">
+                  <a
+                    href="#table-upstreams-v4"
+                    aria-controls="table-upstreams-v4"
+                    role="tab"
+                    data-toggle="tab">IPv4 Upstreams</a>
+                </li>
+                <li role="presentation"><a href="#table-upstreams-v6" aria-controls="table-upstreams-v6" role="tab" data-toggle="tab">IPv6 Upstreams</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div
+                  role="tabpanel"
+                  class="tab-pane active"
+                  id="table-upstreams-v4">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>ASN</th>
+                        <th class="hidden-xs">Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="stream in model.asn_ip4upstreams">
+                        <td class="flag">
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                            title="{{stream.country_code}}"
+                            alt="{{stream.country_code}}" />
+                        </td>
+                        <td>
+                            {{stream.asn}}
+                        </td>
+                        <td class="hidden-xs">{{stream.name}}</td>
+                        <td>{{stream.description}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <a type="button"
+                    class="upstream-graph pull-right button button--aqua btn-md"
+                    data-toggle="modal"
+                    data-target="#ipv4-upstream-modal"
+                    data-url="{{model.asn_ip4upstream_graph}}">
+                    IPv4 Upstream Graph
+                  </a>
+                  <div
+                    class="modal fade"
+                    id="ipv4-upstream-modal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">
+                            IPv4 Upstream Graph
+                          </h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="loader">Loading...</div>
+                          <center><h2>Loading...</h2></center>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane " id="table-upstreams-v6">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="stream in model.asn_ip6upstreams">
+                              <td class="flag">
+                                <img
+                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                                  title="{{stream.country_code}}"
+                                  alt="{{stream.country_code}}" />
+                              </td>
+                              <td>
+                                  {{stream.asn}}
+                              </td>
+                              <td class="hidden-xs">{{stream.name}}</td>
+                              <td>{{stream.description}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+        
+                        <a type="button" class="upstream-graph pull-right button button--aqua btn-md" data-toggle="modal" 
+                        data-target="#ipv6-upstream-modal" data-url="{{model.asn_ip6upstream_graph}}">
+                          IPv6 Upstream Graph
+                      </a>
+                      <div class="modal fade" id="ipv6-upstream-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <h4 class="modal-title" id="myModal6Label">IPv6 Upstream Graph</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="loader">Loading...</div>
+                                      <center><h2>Loading...</h2></center>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div id="content-downstreams" class="col-sm-10 box hidden">
+              <!-- Nav tabs -->
+              <ul
+                class="nav nav-tabs"
+                role="tablist"
+                id="downstreams-tabs">
+                <li role="presentation" class="active"><a href="#table-downstreams-v4" aria-controls="table-downstreams-v4" role="tab" data-toggle="tab">IPv4 Downstreams</a></li>
+              </ul>
+              <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="table-downstreams-v4">
+                      <table class="table table-hover">
+                          <thead>
+                          <tr>
+                              <th>Country</th>
+                              <th>ASN</th>
+                              <th class="hidden-xs">Name</th>
+                              <th>Description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <!-- <tr>
+                                <td class="flag"><img src="https://bgpview.io/assets/flags/shiny/32/US.png" title="United States" alt="United States (US) Flag" /></td>
+                                <td><a href="https://bgpview.io/asn/46652">AS46652</a></td>
+                                <td class="hidden-xs">SERVERSTACK-ASN</td>
+                                <td>ServerStack, Inc.</td>
+                              </tr> -->
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+            </div>
+            <div
+              id="content-graph"
+              data-combined-graph-url="{{model.asn_upstreams_graph}}"
+              class="col-sm-10 box hidden">
+              <div class="loader">Loading...</div>
+              <center><h2>Loading...</h2></center>
+            </div>
+            <div id="content-whois" class="col-sm-10 box hidden">
+              <pre></pre>
+            </div>
+            <div id="content-ix" class="col-sm-10 box hidden">
+              <div role="tabpanel" class="tab-pane active" id="table-ix">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Country</th>
+                      <th>IX</th>
+                      <th class="hidden-xs">Name</th>
+                      <th class="hidden-sm hidden-xs">IPv4</th>
+                      <th class="hidden-sm hidden-xs">IPv6</th>
+                      <th>Port Speed</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

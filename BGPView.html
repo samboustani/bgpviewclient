@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="description"
+      content="BGP Network is based in United States and peers with 282 other ISPs" />
+    <meta
+      name="keywords"
+      content="BGP,Network Information,IP Prefixes,whois,peer,peers,domains,ARIN" />
+    <title>BGPView</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://bgpview.io">
+            <img
+              src="https://bgpview.io/assets/logo_white.png"
+              alt="Logo Header" /></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="col-sm-4 col-md-4">
+          <!-- <ul class="nav navbar-nav nav-links">
+                <li><a href="https://bgpview.io/reports/countries">Countries Report</a></li>
+            </ul> -->
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <div class="col-sm-4 col-md-4 pull-right">
+            <form
+              class="navbar-form"
+              role="search"
+              method="POST"
+              action="/search">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name, ASN, IP, Prefix"
+                  name="query_term"
+                  id="query-term" />
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container main">
+      <div class="resource-details">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="header-bar">
+              <img
+                class="pull-left title-flag"
+                src="https://bgpview.io/assets/flags/shiny/64/US.png"
+                title="United States"
+                alt="United States (US) Flag" />
+              <div class="title-text pull-left ">
+                <h2>DigitalOcean, LLC</h2>
+                <h4>AS14061 ~ DIGITALOCEAN-ASN</h4>
+              </div>
+              <a
+                class="button button--aqua hidden-xs"
+                href="https://www.digitalocean.com"
+                target="_blank">Company Website</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="subheader-bar">
+              <div class="row">
+                <div class="col-sm-3">
+                  <strong>IPv4 Addresses:</strong> 1,831,680
+                </div>
+                <div class="col-sm-3">
+                  <strong>Number of Peers:</strong> 398
+                </div>
+                <div class="col-sm-3">
+                  <strong>Number of Prefixes:</strong> 604
+                </div>
+                <div class="col-sm-3">
+                  <strong>Traffic Estimation:</strong> 1 Tbps+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="resource-content">
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="side-nav">
+                    <ul>
+                      <li><a id="nav-info" href="#info">ASN</a></li>
+                      <li>
+                        <a id="nav-prefixes" href="#prefixes-v4">Prefixes</a>
+                      </li>
+                      <li><a id="nav-peers" href="#peers-v4">Peers</a></li>
+                      <li>
+                        <a id="nav-upstreams" href="#upstreams-v4">Upstreams</a>
+                      </li>
+                      <li>
+                        <a id="nav-downstreams" href="#downstreams-v4">Downstreams</a>
+                      </li>
+                      <li><a id="nav-graph" href="#graph">Graphs</a></li>
+                      <li class="hidden-xs hidden-sm">
+                        <a id="nav-map" href="#map">World Map</a>
+                      </li>
+                      <li><a id="nav-whois" href="#whois">Raw Whois</a></li>
+                      <li><a id="nav-ix" href="#ix">IX</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="content-info" class="col-sm-10 box">
+                  <h3>Summary</h3>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="line-info">
+                        <h4 class="inline">Regional Registry:</h4>
+                        <span>ARIN</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Allocation Status:</h4>
+                        <span>
+                          Assigned
+                        </span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Allocation Date:</h4>
+                        <span> 25<sup>th</sup> September 2012 </span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Allocated Country:</h4>
+                        <span>
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/24/US.png"
+                            title="United States"
+                            alt="United States (US) Flag" />
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="line-info">
+                        <h4 class="inline">Traffic Estimation:</h4>
+                        <span>1 Tbps+</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Traffic Ratio:</h4>
+                        <span>Mostly Outbound</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Internet Exchanges:</h4>
+                        <span>26</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">Website:</h4>
+                        <span>
+                          <a
+                            href="https://www.digitalocean.com"
+                            target="_blank">
+                            https://www.digitalocean.com
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr />
+
+                  <h3>Network</h3>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="line-info">
+                        <h4 class="inline">IPv4 Prefixes:</h4>
+                        <span>590</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">IPv4 Peers:</h4>
+                        <span>282</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">IPv4 Upstreams:</h4>
+                        <span>10</span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="line-info">
+                        <h4 class="inline">IPv6 Prefixes:</h4>
+                        <span>14</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">IPv6 Peers:</h4>
+                        <span>116</span>
+                      </div>
+                      <div class="line-info">
+                        <h4 class="inline">IPv6 Upstreams:</h4>
+                        <span>10</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr />
+
+                  <h3 class="hidden-xs">Contacts</h3>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="line-info">
+                        <h4>Email Contacts:</h4>
+                        <div>
+                          <a href="/cdn-cgi/l/email-protection#debfbcabadbb9ebab7b9b7aabfb2b1bdbbbfb0f0bdb1b3">
+                            <span
+                              class="__cf_email__"
+                              data-cfemail="1b7a796e687e5b7f727c726f7a7774787e7a7535787476">[email&#160;protected]</span>
+                          </a>
+                        </div>
+                        <div>
+                          <a href="/cdn-cgi/l/email-protection#a3cdccc0e3c7cac4cad7c2cfccc0c6c2cd8dc0ccce">
+                            <span
+                              class="__cf_email__"
+                              data-cfemail="d4babbb794b0bdb3bda0b5b8bbb7b1b5bafab7bbb9">[email&#160;protected]</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="visible-xs" />
+
+                    <div class="col-sm-4">
+                      <div class="line-info">
+                        <h4>Abuse Contacts:</h4>
+                        <div>
+                          <a href="/cdn-cgi/l/email-protection#46272433352306222f212f32272a29252327286825292b">
+                            <span
+                              class="__cf_email__"
+                              data-cfemail="a0c1c2d5d3c5e0c4c9c7c9d4c1cccfc3c5c1ce8ec3cfcd">[email&#160;protected]</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="visible-xs" />
+
+                    <div class="col-sm-4">
+                      <div class="line-info">
+                        <h4>Address:</h4>
+                        <div>
+                          101 Ave of the Americas,
+                        </div>
+                        <div>
+                          10th Floor,
+                        </div>
+                        <div>
+                          New York,
+                        </div>
+                        <div>
+                          NY,
+                        </div>
+                        <div>
+                          10013,
+                        </div>
+                        <div>
+                          US
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="content-prefixes" class="col-sm-10 box hidden">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist" id="prefixes-tabs">
+                    <li role="presentation" class="active">
+                      <a
+                        href="#table-prefixes-v4"
+                        aria-controls="table-prefixes-v4"
+                        role="tab"
+                        data-toggle="tab">IPv4 Prefixes</a>
+                    </li>
+                    <li role="presentation">
+                      <a
+                        href="#table-prefixes-v6"
+                        aria-controls="table-prefixes-v6"
+                        role="tab"
+                        data-toggle="tab">IPv6 Prefixes</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div
+                      role="tabpanel"
+                      class="tab-pane active"
+                      id="table-prefixes-v4">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>
+                              <span class="hidden-xs">Announced </span>Prefix
+                            </th>
+                            <th>Description</th>
+                            <th class="hidden-xs">Valid ROA</th>
+                            <th class="hidden-xs">Parent Prefix</th>
+                            <th class="hidden-sm hidden-xs">RIR</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                    <div
+                      role="tabpanel"
+                      class="tab-pane "
+                      id="table-prefixes-v6">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>
+                              <span class="hidden-xs">Announced </span>Prefix
+                            </th>
+                            <th>Description</th>
+                            <th class="hidden-xs">Valid ROA</th>
+                            <th class="hidden-xs">Parent Prefix</th>
+                            <th class="hidden-sm hidden-xs">RIR</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div id="content-peers" class="col-sm-10 box hidden">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist" id="peers-tabs">
+                    <li role="presentation" class="active">
+                      <a
+                        href="#table-peers-v4"
+                        aria-controls="table-peers-v4"
+                        role="tab"
+                        data-toggle="tab">IPv4 Peers</a>
+                    </li>
+                    <li role="presentation">
+                      <a
+                        href="#table-peers-v6"
+                        aria-controls="table-peers-v6"
+                        role="tab"
+                        data-toggle="tab">IPv6 Peers</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div
+                      role="tabpanel"
+                      class="tab-pane active"
+                      id="table-peers-v4">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">IPv6</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane " id="table-peers-v6">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">IPv4</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div id="content-upstreams" class="col-sm-10 box hidden">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist" id="upstreams-tabs">
+                    <li role="presentation" class="active">
+                      <a
+                        href="#table-upstreams-v4"
+                        aria-controls="table-upstreams-v4"
+                        role="tab"
+                        data-toggle="tab">IPv4 Upstreams</a>
+                    </li>
+                    <li role="presentation">
+                      <a
+                        href="#table-upstreams-v6"
+                        aria-controls="table-upstreams-v6"
+                        role="tab"
+                        data-toggle="tab">IPv6 Upstreams</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div
+                      role="tabpanel"
+                      class="tab-pane active"
+                      id="table-upstreams-v4">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">IPv6</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+
+                      <a
+                        type="button"
+                        class="upstream-graph pull-right button button--aqua btn-md"
+                        data-toggle="modal"
+                        data-target="#ipv4-upstream-modal"
+                        data-url="https://api.bgpview.io/assets/graphs/AS14061_IPv4.svg">
+                        IPv4 Upstream Graph
+                      </a>
+                      <div
+                        class="modal fade"
+                        id="ipv4-upstream-modal"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel">
+                                IPv4 Upstream Graph
+                              </h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="loader">Loading...</div>
+                              <center><h2>Loading...</h2></center>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      role="tabpanel"
+                      class="tab-pane "
+                      id="table-upstreams-v6">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                            <th class="hidden-xs">IPv4</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+
+                      <a
+                        type="button"
+                        class="upstream-graph pull-right button button--aqua btn-md"
+                        data-toggle="modal"
+                        data-target="#ipv6-upstream-modal"
+                        data-url="https://api.bgpview.io/assets/graphs/AS14061_IPv6.svg">
+                        IPv6 Upstream Graph
+                      </a>
+                      <div
+                        class="modal fade"
+                        id="ipv6-upstream-modal"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel">
+                                IPv6 Upstream Graph
+                              </h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="loader">Loading...</div>
+                              <center><h2>Loading...</h2></center>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="content-downstreams" class="col-sm-10 box hidden">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist" id="downstreams-tabs">
+                    <li role="presentation" class="active">
+                      <a
+                        href="#table-downstreams-v4"
+                        aria-controls="table-downstreams-v4"
+                        role="tab"
+                        data-toggle="tab">IPv4 Downstreams</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div
+                      role="tabpanel"
+                      class="tab-pane active"
+                      id="table-downstreams-v4">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Country</th>
+                            <th>ASN</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="content-graph"
+                  data-combined-graph-url="https://api.bgpview.io/assets/graphs/AS14061_Combined.svg"
+                  class="col-sm-10 box hidden">
+                  <div class="loader">Loading...</div>
+                  <center><h2>Loading...</h2></center>
+                </div>
+                <div
+                  id="content-map"
+                  class="col-sm-10 box hidden hidden-xs hidden-sm">
+                  <div id="map"></div>
+                  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1TnzGHq-H6KXmB0AVjE8D_SYXHoQYHpE"></script>
+                </div>
+                <div id="content-whois" class="col-sm-10 box hidden">
+                  <pre>
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#</pre>
+                </div>
+                <div id="content-ix" class="col-sm-10 box hidden">
+                  <div role="tabpanel" class="tab-pane active" id="table-ix">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Country</th>
+                          <th>IX</th>
+                          <th class="hidden-xs">Name</th>
+                          <th class="hidden-sm hidden-xs">IPv4</th>
+                          <th class="hidden-sm hidden-xs">IPv6</th>
+                          <th>Port Speed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="flag">
+                            <img
+                              src="https://bgpview.io/assets/flags/shiny/32/US.png"
+                              title="United States"
+                              alt="United States (US) Flag" />
+                          </td>
+                          <td><a href="https://bgpview.io/ix/99">SFMIX</a></td>
+                          <td class="hidden-xs">
+                            <a href="https://bgpview.io/ix/99">San Francisco Metropolitan Internet Exchange</a>
+                          </td>
+                          <td class="hidden-sm hidden-xs">
+                            <a href="https://bgpview.io/ip/206.197.187.10">206.197.187.10</a>
+                          </td>
+                          <td class="hidden-sm hidden-xs">
+                            <a href="https://bgpview.io/ip/2001:504:30::ba01:4061:1">2001:504:30::ba01:4061:1</a>
+                          </td>
+                          <td class="port-speed">10 Gbps</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/assets/js/autogrow.min.js"></script>
+    <script src="/assets/js/bgp_scripts.js"></script>
+  </body>
+</html>

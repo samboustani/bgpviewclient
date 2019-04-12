@@ -47,6 +47,8 @@ $( document ).ready(function() {
         var hash = $(this).attr("href").substr(1);
         window.location.hash = hash;
 
+        console.log(hash);
+        
         // De select all other side nav and select only one we clicked on
         $(this).addClass('selected').parent().siblings().find('a').removeClass('selected');
         var content_id = '#content-' + $(this).attr('id').replace('nav-', '');

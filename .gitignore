@@ -1,0 +1,27 @@
+
+/BrowserMetrics
+/CertificateRevocation
+/CertificateTransparency
+/Crashpad
+/Default
+/FileTypePolicies
+/InterventionPolicyDatabase
+/MEIPreload
+/OriginTrials
+/PepperFlash
+/pnacl
+/Safe Browsing
+/ShaderCache
+/SSLErrorAssistant
+/Subresource Filter
+/SwReporter
+/WidevineCdm
+
+*.pma
+*.bdic
+First Run
+Last Version
+Local State
+lockfile
+Safe Browsing Cookies
+Safe Browsing Cookies-journal

@@ -1,0 +1,148 @@
+
+<div class="container main" ng-controller="search">
+  <div class="resource-details">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="resource-content">
+          <div class="row">
+            <div id="content-info" class="col-sm-12 box">
+              <h3>Results</h3>
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id="results-tabs">
+                <li role="presentation" class="active">
+                  <a
+                    href="#table-results-asns"
+                    aria-controls="table-results-asns"
+                    role="tab"
+                    data-toggle="tab"
+                    >ASNs</a
+                  >
+                </li>
+                <li role="presentation" class="">
+                  <a
+                    href="#table-results-v4"
+                    aria-controls="table-results-v4"
+                    role="tab"
+                    data-toggle="tab"
+                    >IPv4 Prefixes</a
+                  >
+                </li>
+                <li role="presentation" class="">
+                  <a
+                    href="#table-results-v6"
+                    aria-controls="table-results-v6"
+                    role="tab"
+                    data-toggle="tab"
+                    >IPv6 Prefixes</a
+                  >
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div
+                  role="tabpanel"
+                  class="tab-pane active"
+                  id="table-results-asns">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>ASN</th>
+                        <th class="hidden-xs">Name</th>
+                        <th>Description</th>
+                        <th class="hidden-xs">RIR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="asn in model.asns">
+                        <td class="flag">
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/32/{{asn.country_code}}.png"
+                            title="{{asn.country_code}}"
+                            alt="{{asn.country_code}}"
+                          />
+                        </td>
+                        <td>
+                          <a href="{{asn.asn}}">{{asn.asn}}</a>
+                        </td>
+                        <td class="hidden-xs">{{asn.name}}</td>
+                        <td>{{asn.description}}</td>
+                        <td class="hidden-xs">{{asn.rir_name}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div role="tabpanel" class="tab-pane " id="table-results-v4">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>Prefix</th>
+                        <th class="hidden-xs">Name</th>
+                        <th>Description</th>
+                        <th class="hidden-sm hidden-xs">Parent Prefix</th>
+                        <th class="hidden-sm hidden-xs">RIR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="prefix in model.ipv4prefixes">
+                        <td class="flag">
+                          <img
+                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                            title="{{prefix.country_code}}"
+                            alt="{{prefix.country_code}}" />
+                        </td>
+                        <td>
+                          <a href="/prefix/{{prefix.prefix}}">{{prefix.prefix}}</a>
+                        </td>
+                        <td class="hidden-xs">{{prefix.name}}</td>
+                        <td>{{prefix.description}}</td>
+                        <td class="hidden-sm hidden-xs">
+                          <a href="/prefix/{{prefix.parent_prefix}}">{{prefix.parent_prefix}}</a>
+                        </td>
+                        <td class="hidden-sm hidden-xs">{{prefix.rir_name}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div role="tabpanel" class="tab-pane " id="table-results-v6">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>Prefix</th>
+                        <th class="hidden-xs">Name</th>
+                        <th>Description</th>
+                        <th class="hidden-sm hidden-xs">Parent Prefix</th>
+                        <th class="hidden-sm hidden-xs">RIR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="prefix in model.ipv6prefixes">
+                            <td class="flag">
+                              <img
+                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                                title="{{prefix.country_code}}"
+                                alt="{{prefix.country_code}}" />
+                            </td>
+                            <td>
+                              <a href="/prefix/{{prefix.prefix}}">{{prefix.prefix}}</a>
+                            </td>
+                            <td class="hidden-xs">{{prefix.name}}</td>
+                            <td>{{prefix.description}}</td>
+                            <td class="hidden-sm hidden-xs">
+                              <a href="/prefix/{{prefix.parent_prefix}}">{{prefix.parent_prefix}}</a>
+                            </td>
+                            <td class="hidden-sm hidden-xs">{{prefix.rir_name}}</td>
+                          </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

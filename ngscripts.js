@@ -1,8 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('logicwebapp', [])
-    .controller('maincontroller', ['$scope', '$http', '$filter', function($scope, $http) {
+    angular.module('logicwebapp', []).controller('maincontroller', ['$scope', '$http', '$filter', function($scope, $http) {
 
         $scope.queryTerm = "";
 
@@ -26,21 +25,13 @@
     
             
         $scope.search = function() {
-            if (isNaN($scope.queryTerm)) {
-                // text search
-                $http.get('https://api.bgpview.io/search?query_term=' + $scope.queryTerm).success(function (response) {
-                    $scope.model.asns = response.data.asns;
-                    $scope.model.ipv4_prefixes = response.data.ipv4_prefixes;
-                    $scope.model.ipv6_prefixes = response.data.ipv6_prefixes;
+            $http.get('https://api.bgpview.io/search?query_term=' + $scope.queryTerm).success(function (response) {
+                $scope.model.asns = response.data.asns;
+                $scope.model.ipv4_prefixes = response.data.ipv4_prefixes;
+                $scope.model.ipv6_prefixes = response.data.ipv6_prefixes;
 
-                    populate($scope.model.asns[0].asn);
-                })
-            }
-            else {
-                if ($scope.queryTerm.toString().length === 5) {
-                    populate($scope.queryTerm);
-                }        
-            }
+                populate($scope.model.asns[0].asn);
+            })
         };
 
         function populate(asn) {
