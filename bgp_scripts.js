@@ -4,60 +4,60 @@ $( document ).ready(function() {
     $('textarea').autogrow();
 
     // Check if we have a side nav and deal with the switches
-    if ($('.side-nav').length > 0 || $('#results-tabs').length > 0) {
-        // Select current page from nav
-        var hash = window.location.hash;
-        var table_hash = '#table-' + hash.replace('#', '')
-        var plain_hash =  hash.replace('#', '').replace('-v4', '').replace('-v6', '');
-        var nav_hash = '#nav-' + plain_hash;
-        var content_hash = '#content-' + plain_hash;
+    // if ($('.side-nav').length > 0 || $('#results-tabs').length > 0) {
+    //     // Select current page from nav
+    //     var hash = window.location.hash;
+    //     var table_hash = '#table-' + hash.replace('#', '')
+    //     var plain_hash =  hash.replace('#', '').replace('-v4', '').replace('-v6', '');
+    //     var nav_hash = '#nav-' + plain_hash;
+    //     var content_hash = '#content-' + plain_hash;
 
-        // If the id is in nav I will assume its in body content too
-        if ($(nav_hash).length > 0) {
-            $(nav_hash).addClass('selected');
-            $(content_hash).removeClass('hidden');
-        } else {
-            $('.side-nav li a').first().addClass('selected');
-            $('.resource-content .box').first().removeClass('hidden');
-        }
+    //     // If the id is in nav I will assume its in body content too
+    //     if ($(nav_hash).length > 0) {
+    //         $(nav_hash).addClass('selected');
+    //         $(content_hash).removeClass('hidden');
+    //     } else {
+    //         $('.side-nav li a').first().addClass('selected');
+    //         $('.resource-content .box').first().removeClass('hidden');
+    //     }
 
-        // This is used in order to display the current bootstrap v4/v6 tab
-        $('#' + plain_hash + '-tabs a').click(function(e) {
-            $(this).tab('show');
-        });
+    //     // This is used in order to display the current bootstrap v4/v6 tab
+    //     $('#' + plain_hash + '-tabs a').click(function(e) {
+    //         $(this).tab('show');
+    //     });
 
-        // store the currently selected tab in the hash value
-        $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-            var id = $(e.target).attr("href").substr(1);
-            window.location.hash = id.replace('table-', '');
+    //     // store the currently selected tab in the hash value
+    //     $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+    //         var id = $(e.target).attr("href").substr(1);
+    //         window.location.hash = id.replace('table-', '');
 
-            // Adjust the main side-nav too
-            $('.side-nav a.selected').attr('href', '#' + id.replace('table-', ''));
-        });
+    //         // Adjust the main side-nav too
+    //         $('.side-nav a.selected').attr('href', '#' + id.replace('table-', ''));
+    //     });
 
-        // deal with the content of the tabbed page (v4 and v6)
-        $('#' + plain_hash + '-tabs a[href="' + table_hash + '"]').tab('show');
+    //     // deal with the content of the tabbed page (v4 and v6)
+    //     $('#' + plain_hash + '-tabs a[href="' + table_hash + '"]').tab('show');
 
-        initialiseExtra(hash);
-    }
+    //     initialiseExtra(hash);
+    // }
 
     // Change the clicked fields
-    $('.side-nav a').click(function(e) {
-        e.preventDefault();
-        var hash = $(this).attr("href").substr(1);
-        window.location.hash = hash;
+    // $('.side-nav a').click(function(e) {
+    //     e.preventDefault();
+    //     var hash = $(this).attr("href").substr(1);
+    //     window.location.hash = hash;
 
-        console.log(hash);
+    //     console.log(hash);
         
-        // De select all other side nav and select only one we clicked on
-        $(this).addClass('selected').parent().siblings().find('a').removeClass('selected');
-        var content_id = '#content-' + $(this).attr('id').replace('nav-', '');
+    //     // De select all other side nav and select only one we clicked on
+    //     $(this).addClass('selected').parent().siblings().find('a').removeClass('selected');
+    //     var content_id = '#content-' + $(this).attr('id').replace('nav-', '');
 
-        // Show content field we want to see and hide the rest
-        $(content_id).removeClass('hidden').siblings('.box').addClass('hidden');
+    //     // Show content field we want to see and hide the rest
+    //     $(content_id).removeClass('hidden').siblings('.box').addClass('hidden');
 
-        initialiseExtra(hash);
-    });
+    //     initialiseExtra(hash);
+    // });
 
     // Set the upstreams graphs
     $('.upstream-graph').click(function(e) {
@@ -66,7 +66,6 @@ $( document ).ready(function() {
         $.get(svgUrl, function( data ) {
             $(vTarget + ' .modal-body').html(data);
         }, 'text');
-
     });
 
     function initialiseExtra(hash) {
@@ -147,24 +146,24 @@ $( document ).ready(function() {
         });
     }
 
-    $(document).ready(function() {
-        $('#countries-report').DataTable( {
-            "paging":   false,
-            "searching":     false,
-            "processing": true,
-            "info": false,
-            "order": [[ 1, "desc" ]]
-        });
-    } );
+    // $(document).ready(function() {
+    //     $('#countries-report').DataTable( {
+    //         "paging":   false,
+    //         "searching":     false,
+    //         "processing": true,
+    //         "info": false,
+    //         "order": [[ 1, "desc" ]]
+    //     });
+    // } );
 
-    $(document).ready(function() {
-        $('#country-report').DataTable( {
-            "paging":   false,
-            "searching":     false,
-            "processing": true,
-            "info": false,
-            "order": [[ 4, "desc" ]]
-        });
-    } );
+    // $(document).ready(function() {
+    //     $('#country-report').DataTable( {
+    //         "paging":   false,
+    //         "searching":     false,
+    //         "processing": true,
+    //         "info": false,
+    //         "order": [[ 4, "desc" ]]
+    //     });
+    // } );
 
 });

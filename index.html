@@ -12,48 +12,46 @@
   </head>
   <body ng-app="logicwebapp">
     <div ng-controller="home">
-      <nav class="navbar navbar-fixed-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button
-              type="button"
-              class="navbar-toggle"
-              data-toggle="collapse"
-              data-target="#navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://bgpview.io">
-              <img src="https://bgpview.io/assets/logo_white.png" alt="Logo Header" /></a>
-          </div>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container">
+            <div class="navbar-header">
+                <button
+                type="button"
+                class="navbar-toggle"
+                data-toggle="collapse"
+                data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://bgpview.io">
+                <img src="https://bgpview.io/assets/logo_white.png" alt="Logo Header" /></a>
+            </div>
 
-          <div class="collapse navbar-collapse" id="navbar-collapse">
-            <div class="col-sm-4 col-md-4 pull-right" style="top: 8px;">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Name, ASN, IP, Prefix"
-                    name="query_term"
-                    id="query-term"
-                    ng-model="queryTerm" />
-                  <div class="input-group-btn">
-                    <button class="btn btn-default" ng-click="search()">
-                      <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                  </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <div class="col-sm-4 col-md-4 pull-right" style="top: 8px;">
+                    <div class="input-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Name, ASN, IP, Prefix"
+                        name="query_term"
+                        id="query-term"
+                        ng-model="queryTerm" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" ng-click="search()">
+                        <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                    </div>
                 </div>
             </div>
-          </div>
-        </div>
-      </nav>
+            </div>
+        </nav>
 
-      <div>
-        <search-results data="data" ng-if="showSearch"></search-results>
-      </div>
-
+        <search-results data="data" show-asn="showAsn(asn)" ng-show="showSearch"></search-results>
+        <asn-details data="asndata" ng-show="showDetails"></asn-details>
       </div>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -66,14 +64,14 @@
       <script
         src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"
         crossorigin="anonymous"></script>
-      <script src="autogrow.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js"></script>
+        <script src="app.js"></script>
+        <script src="apiServices.js"></script>
+        <script src="home_controller.js"></script>
+        <script src="search_controller.js"></script>
+        <script src="details_controller.js"></script>
+        <script src="autogrow.min.js"></script>
       <script src="bgp_scripts.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js"></script>
-      <script src="app.js"></script>
-      <script src="apiServices.js"></script>
-      <script src="home_controller.js"></script>
-      <script src="search_controller.js"></script>
-      <!-- <script src="details_controller.js"></script> -->
     </body>
 </html>
