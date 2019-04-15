@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>AS64286 LogicWeb Inc. BGP Network Information - BGPView</title>
+    <title>ASN Search</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
@@ -12,14 +12,10 @@
   </head>
   <body ng-app="logicwebapp">
     <div ng-controller="home">
-        <nav class="navbar navbar-fixed-top">
+        <nav class="navbar navbar-fixed-top" ng-hide="showIndex">
             <div class="container">
             <div class="navbar-header">
-                <button
-                type="button"
-                class="navbar-toggle"
-                data-toggle="collapse"
-                data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -32,13 +28,8 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <div class="col-sm-4 col-md-4 pull-right" style="top: 8px;">
                     <div class="input-group">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Name, ASN, IP, Prefix"
-                        name="query_term"
-                        id="query-term"
-                        ng-model="queryTerm" />
+                    <input type="text" class="form-control" placeholder="Name, ASN, IP, Prefix"
+                        name="query_term2" id="query-term2" ng-model="queryTerm" />
                     <div class="input-group-btn">
                         <button class="btn btn-default" ng-click="search()">
                         <i class="glyphicon glyphicon-search"></i>
@@ -49,6 +40,30 @@
             </div>
             </div>
         </nav>
+
+        <div class="container centered-page" ng-show="showIndex">
+            <div class="row main-logo">
+                <div class="text-center">
+                    <img src="https://www.bgpview.io/assets/logo.png" height="100">
+                </div>
+            </div>      
+            <div class="row">
+                <div class="col-lg-push-3 col-lg-6">
+                    <div class="input-group">
+                      <!-- 173.239.200.0/23 -->
+                      <input type="text" name="query_term1" id="query_term1" ng-model="queryTerm" class="form-control" placeholder="Search for any ASN, IP, Prefix or Resource name">
+                      <span class="input-group-btn">
+                          <button class="btn btn-default" ng-click="search()">Search!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>      
+            <div class="row sub-text">
+                <div class="text-center col-lg-push-3 col-lg-6">
+                    e.g: AS13335, 2a02:ec80::/32, AMS-IX, 59.0.170.0/24
+                </div>
+            </div>
+        </div>
 
         <search-results data="data" show-asn="showAsn(asn)" ng-show="showSearch"></search-results>
         <asn-details data="asndata" ng-show="showDetails"></asn-details>

@@ -2,6 +2,10 @@
 
 app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServices, $q) {
 
+    $scope.showIndex = true;
+    $scope.showSearch = false;
+    $scope.showDetails = false;
+
     $scope.search = function() {
         apiServices.search($scope.queryTerm)
             .then(function (response) {
@@ -15,6 +19,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
                 $scope.data.ipv4prefixes = response.data.data.ipv4_prefixes;
                 $scope.data.ipv6prefixes = response.data.data.ipv6_prefixes;
                 
+                $scope.showIndex = false;
                 $scope.showSearch = true;
                 $scope.showDetails = false;
             });
@@ -51,6 +56,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             getAsnUpstreams(asn), 
             getAsnDownstreams(asn) //getWhoIs(asn)
         ]).then(function(data) {
+            $scope.showIndex = false;
             $scope.showSearch = false;
             $scope.showDetails = true;
         });
