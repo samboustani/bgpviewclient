@@ -1,20 +1,19 @@
 'use strict';
 
-app.controller('search', ['$scope', '$http', function($scope, $http) {
+app.controller('prefix', ['$scope', '$http', function($scope, $http) {
 
     
 }])
-.directive('searchResults', function() {
+.directive('prefixDetails', function() {
     return {
         restrict: 'E',
         scope: {
-            data: '=',
-            getAsn: '&'
+            data: '='
         },
         link: function (scope, elm, attr) {
             scope.$watch('data', function(newValue, oldValue) {
             }, true);
         },
-        templateUrl: 'search_results.html'
+        templateUrl: 'prefix.html'
     };
 });

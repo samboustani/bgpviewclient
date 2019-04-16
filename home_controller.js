@@ -4,28 +4,86 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
 
     $scope.showIndex = true;
     $scope.showSearch = false;
-    $scope.showDetails = false;
+    $scope.showASN = false;
+    $scope.showPrefix = false;
+    $scope.showIP = false;
 
     $scope.search = function() {
-        apiServices.search($scope.queryTerm)
-            .then(function (response) {
-                $scope.data = {
-                    asns: [],
-                    ipv4prefixes: [],
-                    ipv6prefixes: []
-                };
-            
-                $scope.data.asns = response.data.data.asns;
-                $scope.data.ipv4prefixes = response.data.data.ipv4_prefixes;
-                $scope.data.ipv6prefixes = response.data.data.ipv6_prefixes;
+
+        if (isIp($scope.queryTerm)) {
+            // 173.239.196.0
+            // 2606:f180::
+            $scope.getIP($scope.queryTerm);
+        }
+        else if (isPrefix($scope.queryTerm)) {
+            // 173.239.196.0/24
+            // 2606:f180::/48
+            $scope.getPrefix($scope.queryTerm);
+        }
+        else {
+            // logicweb
+            if ($scope.queryTerm.startsWith('as')) {
+                $scope.queryTerm = $scope.queryTerm.substring(2);
+            }
+    
+            apiServices.search($scope.queryTerm)
+                .then(function (response) {
+                    $scope.data = {
+                        asns: [],
+                        ipv4prefixes: [],
+                        ipv6prefixes: []
+                    };
                 
-                $scope.showIndex = false;
-                $scope.showSearch = true;
-                $scope.showDetails = false;
-            });
+                    $scope.data.asns = response.data.data.asns;
+                    $scope.data.ipv4prefixes = response.data.data.ipv4_prefixes;
+                    $scope.data.ipv6prefixes = response.data.data.ipv6_prefixes;
+                    
+                    $scope.showIndex = false;
+                    $scope.showSearch = true;
+                    $scope.showASN = false;
+                    $scope.showPrefix = false;
+                    $scope.showIP = false;
+                });
+        }
     };
 
-    $scope.showAsn = function(asn) {
+    function isIp(query) {
+        if (query.match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
+        || query.match("((^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))")) {
+            return true;
+        }
+        return false;
+    }
+
+    function isPrefix(query) {
+        if (query.match("^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$")
+        || query.match("^s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?$")) {
+            return true;
+        }
+        return false;
+    }
+
+    $scope.getPrefix = function(ip) {
+        $scope.prefixdata = {};
+
+        $scope.showIndex = false;
+        $scope.showSearch = false;
+        $scope.showASN = false;
+        $scope.showPrefix = true;
+        $scope.showIP = false;
+    };
+
+    $scope.getIP = function(ip) {
+        $scope.ipdata = {};
+
+        $scope.showIndex = false;
+        $scope.showSearch = false;
+        $scope.showASN = false;
+        $scope.showPrefix = false;
+        $scope.showIP = true;
+    };
+
+    $scope.getAsn = function(asn) {
         $scope.asndata = {
             asn: {},
             asns: [],
@@ -58,7 +116,9 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
         ]).then(function(data) {
             $scope.showIndex = false;
             $scope.showSearch = false;
-            $scope.showDetails = true;
+            $scope.showASN = true;
+            $scope.showPrefix = false;
+            $scope.showIP = false;
         });
     }
 

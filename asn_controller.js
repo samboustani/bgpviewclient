@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('details', ['$scope', '$http', function($scope, $http) {
+app.controller('asn', ['$scope', '$http', function($scope, $http) {
 
     $scope.tab = 'asn';
     
