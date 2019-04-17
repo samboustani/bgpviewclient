@@ -10,6 +10,8 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
 
     $scope.search = function() {
 
+        $scope.queryTerm = $scope.queryTerm.trim();
+
         if (isIp($scope.queryTerm)) {
             // 173.239.196.0
             // 2606:f180::
@@ -21,8 +23,8 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             $scope.getPrefix($scope.queryTerm);
         }
         else {
-            // TODO: use regex "as00000"
-            if ($scope.queryTerm.startsWith('as')) {
+            // AS64286
+            if (/^(as|AS)\d{5,6}$/.test($scope.queryTerm)) {
                 $scope.queryTerm = $scope.queryTerm.substring(2);
             }
     
@@ -34,9 +36,9 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
                         ipv6prefixes: []
                     };
 
-                    $scope.data.asns = data.asns;
-                    $scope.data.ipv4prefixes = data.ipv4_prefixes;
-                    $scope.data.ipv6prefixes = data.ipv6_prefixes;
+                    $scope.data.asns = data.data.asns;
+                    $scope.data.ipv4prefixes = data.data.ipv4_prefixes;
+                    $scope.data.ipv6prefixes = data.data.ipv6_prefixes;
     
                     $scope.showIndex = false;
                     $scope.showSearch = true;
@@ -71,12 +73,12 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
                     ipcount: 0
                 };
 
-                $scope.prefixdata.data = data;
-                $scope.prefixdata.data.rir_allocation.date_allocated = new Date($scope.prefixdata.data.rir_allocation.date_allocated.replace(/-/g,"/"));
+                $scope.prefixdata.prefix = data;
+                $scope.prefixdata.prefix.rir_allocation.date_allocated = new Date($scope.prefixdata.prefix.rir_allocation.date_allocated.replace(/-/g,"/"));
 
-                getSearch(data.name)
+                getSearch($scope.prefixdata.prefix.name)
                 .then(function(data) {
-                    $scope.prefixdata.ipcount = data.ipv4_prefixes.length;
+                    $scope.prefixdata.ipcount = data.data.ipv4_prefixes.length;
                 });
 
                 $scope.showIndex = false;
@@ -123,14 +125,12 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             asn_ixs: []
         };
 
-        $scope.asndata.asn_ipv4addresses = $scope.data.ipv4prefixes.length;
-
         populate(asn);
     };
 
     function getSearch(query) {
         var d = $q.defer();
-        apiServices.search($scope.queryTerm)
+        apiServices.search(query)
             .then(function (response) {
                 d.resolve(response.data);
             });
@@ -160,6 +160,12 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             .then(function (response) {
                 $scope.asndata.asn = response.data.data;
                 $scope.asndata.asn.rir_allocation.date_allocated = new Date($scope.asndata.asn.rir_allocation.date_allocated.replace(/-/g,"/"));
+
+                getSearch($scope.asndata.asn.name)
+                    .then(function(response) {
+                        $scope.asndata.asn_ipv4addresses = response.data.ipv4_prefixes.length;
+                    });
+
                 d.resolve(true);
             });
             return d.promise;

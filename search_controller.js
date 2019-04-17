@@ -9,7 +9,8 @@ app.controller('search', ['$scope', '$http', function($scope, $http) {
         restrict: 'E',
         scope: {
             data: '=',
-            getAsn: '&'
+            getAsn: '&',
+            getPrefix: '&'
         },
         link: function (scope, elm, attr) {
             scope.$watch('data', function(newValue, oldValue) {

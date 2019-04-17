@@ -86,12 +86,12 @@
                             alt="{{prefix.country_code}}" />
                         </td>
                         <td>
-                          <a href="prefix/{{prefix.prefix}}">{{prefix.prefix}}</a>
+                          <a href ng-click="getPrefix({prefix:prefix.prefix})">{{prefix.prefix}}</a>
                         </td>
                         <td class="hidden-xs">{{prefix.name}}</td>
                         <td>{{prefix.description}}</td>
                         <td class="hidden-sm hidden-xs">
-                          <a href="prefix/{{prefix.parent_prefix}}">{{prefix.parent_prefix}}</a>
+                          <a href ng-click="getPrefix({prefix:prefix.parent_prefix})">{{prefix.parent_prefix}}</a>
                         </td>
                         <td class="hidden-sm hidden-xs">{{prefix.rir_name}}</td>
                       </tr>
@@ -119,12 +119,12 @@
                                 alt="{{prefix.country_code}}" />
                             </td>
                             <td>
-                              <a href="prefix/{{prefix.prefix}}">{{prefix.prefix}}</a>
+                              <a href ng-click="getPrefix({prefix:prefix.prefix})">{{prefix.prefix}}</a>
                             </td>
                             <td class="hidden-xs">{{prefix.name}}</td>
                             <td>{{prefix.description}}</td>
                             <td class="hidden-sm hidden-xs">
-                              <a href="prefix/{{prefix.parent_prefix}}">{{prefix.parent_prefix}}</a>
+                              <a href ng-click="getPrefix({prefix:prefix.parent_prefix})">{{prefix.parent_prefix}}</a>
                             </td>
                             <td class="hidden-sm hidden-xs">{{prefix.rir_name}}</td>
                           </tr>

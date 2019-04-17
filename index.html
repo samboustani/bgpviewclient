@@ -65,9 +65,9 @@
         </div>
 
         <!-- search results -->
-        <search-results data="data" get-asn="getAsn(asn)" ng-show="showSearch"></search-results>
+        <search-results data="data" get-asn="getAsn(asn)" get-prefix="getPrefix(prefix)" ng-show="showSearch"></search-results>
         <!-- ASN details -->
-        <asn-details data="asndata" ng-show="showASN"></asn-details>
+        <asn-details data="asndata" get-asn="getAsn(asn)" get-prefix="getPrefix(prefix)" ng-show="showASN"></asn-details>
         <!-- prefix details -->
         <prefix-details data="prefixdata" get-asn="getAsn(asn)" ng-show="showPrefix"></prefix-details>
         <!-- IP details -->
