@@ -65,13 +65,15 @@
         </div>
 
         <!-- search results -->
-        <search-results data="data" show-asn="getAsn(asn)" ng-show="showSearch"></search-results>
+        <search-results data="data" get-asn="getAsn(asn)" ng-show="showSearch"></search-results>
         <!-- ASN details -->
         <asn-details data="asndata" ng-show="showASN"></asn-details>
         <!-- prefix details -->
-        <prefix-details data="prefixdata" ng-show="showPrefix"></prefix-details>
+        <prefix-details data="prefixdata" get-asn="getAsn(asn)" ng-show="showPrefix"></prefix-details>
         <!-- IP details -->
         <ip-details data="ipdata" ng-show="showIP"></ip-details>
+        <!-- IX details -->
+        
       </div>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

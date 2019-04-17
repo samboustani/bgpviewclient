@@ -49,6 +49,7 @@
                   <li><a id="nav-downstreams" href ng-click="showTab('downstreams')" ng-class="{selected: tab == 'downstreams'}">Downstreams</a></li>
                   <li><a id="nav-graph" href ng-click="showTab('graphs')" ng-class="{selected: tab == 'graphs'}">Graphs</a></li>
                   <li><a id="nav-whois" href ng-click="showTab('whois')" ng-class="{selected: tab == 'whois'}">Raw Whois</a></li>
+                  <li><a id="nav-ix" href ng-click="showTab('ix')" ng-class="{selected: tab == 'ix'}">IX</a></li>
                 </ul>
               </div>
             </div>
@@ -165,9 +166,7 @@
                     <thead>
                       <tr>
                         <th>Country</th>
-                        <th>
-                          <span class="hidden-xs">Announced </span>Prefix
-                        </th>
+                        <th><span class="hidden-xs">Announced </span>Prefix</th>
                         <th>Description</th>
                         <th class="hidden-xs">Valid ROA</th>
                         <th class="hidden-xs">Parent Prefix</th>
@@ -182,18 +181,12 @@
                             title="{{prefix.country_code}}"
                             alt="{{prefix.country_code}}" />
                         </td>
-                        <td>
-                            {{prefix.prefix}}
-                        </td>
+                        <td>{{prefix.prefix}}</td>
                         <td>{{prefix.description}}</td>
                         <td class="hidden-xs">
-                          <span
-                            class="fa fa-question"
-                            aria-hidden="true"></span>
+                          <span class="fa fa-question" aria-hidden="true"></span>
                         </td>
-                        <td class="hidden-xs">
-                            {{prefix.parent.prefix}}
-                        </td>
+                        <td class="hidden-xs">{{prefix.parent.prefix}}</td>
                         <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
                       </tr>
                     </tbody>
@@ -219,18 +212,12 @@
                                     title="{{prefix.country_code}}"
                                     alt="{{prefix.country_code}}" />
                                 </td>
-                                <td>
-                                    {{prefix.prefix}}
-                                </td>
+                                <td>{{prefix.prefix}}</td>
                                 <td>{{prefix.description}}</td>
                                 <td class="hidden-xs">
-                                  <span
-                                    class="fa fa-question"
-                                    aria-hidden="true"></span>
+                                  <span class="fa fa-question" aria-hidden="true"></span>
                                 </td>
-                                <td class="hidden-xs">
-                                    {{prefix.parent.prefix}}
-                                </td>
+                                <td class="hidden-xs">{{prefix.parent.prefix}}</td>
                                 <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
                               </tr>
                           </tbody>
@@ -266,9 +253,7 @@
                             title="{{peer.country_code}}"
                             alt="{{peer.country_code}}" />
                         </td>
-                        <td>
-                            {{peer.asn}}
-                        </td>
+                        <td>{{peer.asn}}</td>
                         <td class="hidden-xs">{{peer.name}}</td>
                         <td>{{peer.description}}</td>
                       </tr>
@@ -294,9 +279,7 @@
                                   title="{{peer.country_code}}"
                                   alt="{{peer.country_code}}" />
                               </td>
-                              <td>
-                                  {{peer.asn}}
-                              </td>
+                              <td>{{peer.asn}}</td>
                               <td class="hidden-xs">{{peer.name}}</td>
                               <td>{{peer.description}}</td>
                             </tr>
@@ -447,9 +430,7 @@
                                     title="{{stream.country_code}}"
                                     alt="{{stream.country_code}}" />
                                 </td>
-                                <td>
-                                    {{stream.asn}}
-                                </td>
+                                <td>{{stream.asn}}</td>
                                 <td class="hidden-xs">{{stream.name}}</td>
                                 <td>{{stream.description}}</td>
                               </tr>
@@ -468,18 +449,16 @@
                           </thead>
                           <tbody>
                             <tr ng-repeat="stream in data.asn_ip6downstreams">
-                                <td class="flag">
-                                  <img
-                                    src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
-                                    title="{{stream.country_code}}"
-                                    alt="{{stream.country_code}}" />
-                                </td>
-                                <td>
-                                    {{stream.asn}}
-                                </td>
-                                <td class="hidden-xs">{{stream.name}}</td>
-                                <td>{{stream.description}}</td>
-                              </tr>
+                              <td class="flag">
+                                <img
+                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                                  title="{{stream.country_code}}"
+                                  alt="{{stream.country_code}}" />
+                              </td>
+                              <td>{{stream.asn}}</td>
+                              <td class="hidden-xs">{{stream.name}}</td>
+                              <td>{{stream.description}}</td>
+                            </tr>
                           </tbody>
                       </table>
                   </div>
@@ -491,7 +470,7 @@
             <div id="content-whois" class="col-sm-10 box" ng-show="tab == 'whois'">
               <pre></pre>
             </div>
-            <div id="content-ix" class="col-sm-10 box hidden">
+            <div id="content-ix" class="col-sm-10 box" ng-show="tab == 'ix'">
               <div role="tabpanel" class="tab-pane active" id="table-ix">
                 <table class="table table-hover">
                   <thead>
@@ -504,7 +483,21 @@
                       <th>Port Speed</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    <tr ng-repeat="ix in data.asn_ixs">
+                      <td class="flag">
+                        <img
+                          src="https://bgpview.io/assets/flags/shiny/32/{{ix.country_code}}.png"
+                          title="{{ix.country_code}}"
+                          alt="{{ix.country_code}}" />
+                      </td>
+                      <td>{{ix.name}}</td>
+                      <td>{{ix.name_full}}</td>
+                      <td>{{ix.ipv4_address}}</td>
+                      <td>{{ix.ipv6_address}}</td>
+                      <td>{{ix.speed}}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>

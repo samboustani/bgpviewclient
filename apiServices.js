@@ -35,6 +35,16 @@ app.factory('apiServices', ['$http', function($http) {
         return $http.get('https://api.bgpview.io/asn/' + asn + '/downstreams');
     };
 
+    // ASN IXs
+    apiServices.getAsnIXs = function(asn) {
+        return $http.get('https://api.bgpview.io/asn/' + asn + '/ixs');
+    };
+
+    // Prefix details
+    apiServices.getPrefixDetails = function(prefix) {
+        return $http.get('https://api.bgpview.io/prefix/' + prefix);
+    };
+
     // WhoIs
     apiServices.getWhoIs = function(asn) {
         return $http.get('https://rdap.arin.net/registry/autnum/' + asn);
@@ -42,6 +52,15 @@ app.factory('apiServices', ['$http', function($http) {
         //https://www.arin.net/resources/registry/whois/rdap/#rdap-urls
     };
 
+    // IP details
+    apiServices.getIPDetails = function(ip) {
+        return $http.get('https://api.bgpview.io/ip/' + ip);
+    };
+
+    // IX details
+    apiServices.getIXDetails = function(ix) {
+        return $http.get('https://api.bgpview.io/ix/' + ix);
+    };
 
     return apiServices;
 }]);

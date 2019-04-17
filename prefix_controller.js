@@ -2,13 +2,19 @@
 
 app.controller('prefix', ['$scope', '$http', function($scope, $http) {
 
+    $scope.tab = 'info';
+    
+    $scope.showTab = function(tabId) {
+        $scope.tab = tabId;
+    }
     
 }])
 .directive('prefixDetails', function() {
     return {
         restrict: 'E',
         scope: {
-            data: '='
+            data: '=',
+            getAsn: '&'
         },
         link: function (scope, elm, attr) {
             scope.$watch('data', function(newValue, oldValue) {
