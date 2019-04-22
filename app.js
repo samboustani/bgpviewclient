@@ -1,3 +1,3 @@
 'use strict';
 
-var app = angular.module('logicwebapp', []);
+var app = angular.module('logicwebapp', ['customFilters']);

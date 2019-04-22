@@ -15,7 +15,9 @@ app.controller('asn', ['$scope', '$http', function($scope, $http) {
         scope: {
             data: '=',
             getAsn: '&',
-            getPrefix: '&'
+            getPrefix: '&',
+            getIp: '&',
+            getIx: '&'
         },
         link: function (scope, elm, attr) {
             scope.$watch('data', function(newValue, oldValue) {

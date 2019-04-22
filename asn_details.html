@@ -25,7 +25,7 @@
               <strong>Number of Prefixes:</strong> {{data.ipv4_prefixes.length}}
             </div>
             <div class="col-sm-3">
-              <strong>ASN Allocated:</strong> {{data.asn.rir_allocation.date_allocated | date: 'mediumDate'}}
+              <strong>Traffic Estimation:</strong> {{data.asn.traffic_estimation}}
             </div>
           </div>
         </div>
@@ -81,7 +81,24 @@
                     </span>
                   </div>
                 </div>
-                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <div class="line-info">
+                      <h4 class="inline">Traffic Estimation:</h4>
+                      <span>{{data.asn.traffic_estimation}}</span>
+                    </div>
+                    <div class="line-info">
+                      <h4 class="inline">Traffic Ratio:</h4>
+                      <span>{{data.asn.traffic_ratio}}</span>
+                    </div>
+                    <div class="line-info">
+                      <h4 class="inline">Internet Exchanges:</h4>
+                      <span>{{data.asn_ixs.length}}</span>
+                    </div>
+                    <div class="line-info">
+                      <h4 class="inline">Website:</h4>
+                      <span>{{data.asn.website}}</span>
+                    </div>
+                </div>
               </div>
               <hr />
               <h3>Network</h3>
@@ -189,7 +206,7 @@
                           <span class="fa fa-question" aria-hidden="true"></span>
                         </td>
                         <td class="hidden-xs">
-                          <a href ng-click="getPrefix({prefix:prefix.parent_prefix})">{{prefix.parent_prefix}}</a>
+                          <a href ng-click="getPrefix({prefix:prefix.parent.prefix})">{{prefix.parent.prefix}}</a>
                         </td>
                         <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
                       </tr>
@@ -198,7 +215,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane " id="table-prefixes-v6">
                   <table class="table table-hover">
-                      <thead>
+                    <thead>
                       <tr>
                           <th>Country</th>
                           <th><span class="hidden-xs">Announced </span>Prefix</th>
@@ -207,29 +224,29 @@
                           <th class="hidden-xs">Parent Prefix</th>
                           <th class="hidden-sm hidden-xs">RIR</th>
                       </tr>
-                      </thead>
-                      <tbody>
-                          <tr ng-repeat="prefix in data.ipv6_prefixes">
-                              <td class="flag">
-                                <img
-                                  src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
-                                  title="{{prefix.country_code}}"
-                                  alt="{{prefix.country_code}}" />
-                              </td>
-                              <td>
-                                <a href ng-click="getPrefix({prefix:prefix.prefix})">{{prefix.prefix}}</a>
-                              </td>
-                              <td>{{prefix.description}}</td>
-                              <td class="hidden-xs">
-                                <span class="fa fa-question" aria-hidden="true"></span>
-                              </td>
-                              <td class="hidden-xs">
-                                <a href ng-click="getPrefix({prefix:prefix.parent_prefix})">{{prefix.parent_prefix}}</a>
-                              </td>
-                              <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
-                            </tr>
-                        </tbody>
-                      </table>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="prefix in data.ipv6_prefixes">
+                            <td class="flag">
+                              <img
+                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                                title="{{prefix.country_code}}"
+                                alt="{{prefix.country_code}}" />
+                            </td>
+                            <td>
+                              <a href ng-click="getPrefix({prefix:prefix.prefix})">{{prefix.prefix}}</a>
+                            </td>
+                            <td>{{prefix.description}}</td>
+                            <td class="hidden-xs">
+                              <span class="fa fa-question" aria-hidden="true"></span>
+                            </td>
+                            <td class="hidden-xs">
+                              <a href ng-click="getPrefix({prefix:prefix.parent.prefix})">{{prefix.parent.prefix}}</a>
+                            </td>
+                            <td class="hidden-sm hidden-xs">{{prefix.parent.rir_name}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
                   </div>
               </div>
             </div>
@@ -262,7 +279,7 @@
                             alt="{{peer.country_code}}" />
                         </td>
                         <td>
-                          <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">{{peer.asn}}</a>
+                          <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
                         </td>
                         <td class="hidden-xs">{{peer.name}}</td>
                         <td>{{peer.description}}</td>
@@ -278,7 +295,6 @@
                             <th>ASN</th>
                             <th class="hidden-xs">Name</th>
                             <th>Description</th>
-                            <th class="hidden-xs">IPv4</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -290,7 +306,7 @@
                                   alt="{{peer.country_code}}" />
                               </td>
                               <td>
-                                <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">{{peer.asn}}</a>
+                                <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
                               </td>
                               <td class="hidden-xs">{{peer.name}}</td>
                               <td>{{peer.description}}</td>
@@ -328,9 +344,7 @@
                             title="{{stream.country_code}}"
                             alt="{{stream.country_code}}" />
                         </td>
-                        <td>
-                            {{stream.asn}}
-                        </td>
+                        <td>AS{{stream.asn}}</td>
                         <td class="hidden-xs">{{stream.name}}</td>
                         <td>{{stream.description}}</td>
                       </tr>
@@ -385,9 +399,7 @@
                                   title="{{stream.country_code}}"
                                   alt="{{stream.country_code}}" />
                               </td>
-                              <td>
-                                  {{stream.asn}}
-                              </td>
+                              <td>AS{{stream.asn}}</td>
                               <td class="hidden-xs">{{stream.name}}</td>
                               <td>{{stream.description}}</td>
                             </tr>
@@ -443,7 +455,7 @@
                                     alt="{{stream.country_code}}" />
                                 </td>
                                 <td>
-                                  <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">{{stream.asn}}</a>
+                                  <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
                                 </td>
                                 <td class="hidden-xs">{{stream.name}}</td>
                                 <td>{{stream.description}}</td>
@@ -470,7 +482,7 @@
                                   alt="{{stream.country_code}}" />
                               </td>
                               <td>
-                                <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">{{stream.asn}}</a>
+                                <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
                               </td>
                               <td class="hidden-xs">{{stream.name}}</td>
                               <td>{{stream.description}}</td>
@@ -507,11 +519,13 @@
                           title="{{ix.country_code}}"
                           alt="{{ix.country_code}}" />
                       </td>
-                      <td>{{ix.name}}</td>
-                      <td>{{ix.name_full}}</td>
-                      <td>{{ix.ipv4_address}}</td>
-                      <td>{{ix.ipv6_address}}</td>
-                      <td>{{ix.speed}}</td>
+                      <td>
+                        <a href ng-click="getIx({ix:ix.ix_id})" style="cursor:pointer;">{{ix.name}}</a>
+                      </td>
+                      <td><a href ng-click="getIx({ix:ix.ix_id})" style="cursor:pointer;">{{ix.name_full}}</a></td>
+                      <td><a href ng-click="getIp({ip:ix.ipv4_address})" style="cursor:pointer;">{{ix.ipv4_address}}</a></td>
+                      <td><a href ng-click="getIp({ip:ix.ipv6_address})" style="cursor:pointer;">{{ix.ipv6_address}}</a></td>
+                      <td>{{ix.speed | formatSpeed}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -522,5 +536,4 @@
       </div>
     </div>
   </div>
-</div>
 </div>

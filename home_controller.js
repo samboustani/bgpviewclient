@@ -7,6 +7,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
     $scope.showASN = false;
     $scope.showPrefix = false;
     $scope.showIP = false;
+    $scope.showIX = false;
 
     $scope.search = function() {
 
@@ -30,21 +31,26 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
     
             getSearch($scope.queryTerm)
                 .then(function(data) {
-                    $scope.data = {
+                    $scope.searchdata = {
                         asns: [],
                         ipv4prefixes: [],
-                        ipv6prefixes: []
+                        ipv4count: 0,
+                        ipv6prefixes: [],
+                        ipv6count: 0
                     };
 
-                    $scope.data.asns = data.data.asns;
-                    $scope.data.ipv4prefixes = data.data.ipv4_prefixes;
-                    $scope.data.ipv6prefixes = data.data.ipv6_prefixes;
+                    $scope.searchdata.asns = data.data.asns;
+                    $scope.searchdata.ipv4prefixes = data.data.ipv4_prefixes;
+                    $scope.searchdata.ipv4count = data.data.ipv4_prefixes.length;
+                    $scope.searchdata.ipv6prefixes = data.data.ipv6_prefixes;
+                    $scope.searchdata.ipv6count = data.data.ipv6_prefixes.length;
     
                     $scope.showIndex = false;
                     $scope.showSearch = true;
                     $scope.showASN = false;
                     $scope.showPrefix = false;
                     $scope.showIP = false;
+                    $scope.showIX = false;
                 });
         }
     };
@@ -86,6 +92,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
                 $scope.showASN = false;
                 $scope.showPrefix = true;
                 $scope.showIP = false;
+                $scope.showIX = false;
             });
     };
 
@@ -99,11 +106,22 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
                 $scope.showASN = false;
                 $scope.showPrefix = false;
                 $scope.showIP = true;
+                $scope.showIX = false;
             });
     };
 
     $scope.getIX = function(ix) {
-        $scope.ixdata = getIXDetails(ix);
+        getIXDetails(ix)
+            .then(function(data) {
+                $scope.ixdata = data;
+
+                $scope.showIndex = false;
+                $scope.showSearch = false;
+                $scope.showASN = false;
+                $scope.showPrefix = false;
+                $scope.showIP = false;
+                $scope.showIX = true;
+            });
     };
 
     $scope.getAsn = function(asn) {
@@ -151,6 +169,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             $scope.showASN = true;
             $scope.showPrefix = false;
             $scope.showIP = false;
+            $scope.showIX = false;
         });
     }
 
@@ -160,12 +179,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             .then(function (response) {
                 $scope.asndata.asn = response.data.data;
                 $scope.asndata.asn.rir_allocation.date_allocated = new Date($scope.asndata.asn.rir_allocation.date_allocated.replace(/-/g,"/"));
-
-                getSearch($scope.asndata.asn.name)
-                    .then(function(response) {
-                        $scope.asndata.asn_ipv4addresses = response.data.ipv4_prefixes.length;
-                    });
-
+                $scope.asndata.asn_ipv4addresses = $scope.searchdata.ipv4count;
                 d.resolve(true);
             });
             return d.promise;

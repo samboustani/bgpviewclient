@@ -1,14 +1,14 @@
-<div class="container main">
-        <div class="resource-details">
+<div class="container main" ng-controller="ix">
+    <div class="resource-details">
         <div class="row">
             <div class="col-sm-12">
                 <div class="header-bar">
-                    <img class="pull-left title-flag" src="https://bgpview.io/assets/flags/shiny/64/NZ.png" title="Auckland, New Zealand" alt="New Zealand (NZ) Flag" />
+                    <img class="pull-left title-flag" src="https://bgpview.io/assets/flags/shiny/64/{{data.country_code}}.png" title="{{data.country_code}}" alt="{{data.country_code}}" />
                     <div class="title-text pull-left ">
-                        <h2>APE</h2>
-                        <h4>Auckland Peering Exchange</h4>
+                        <h2>{{data.name}}</h2>
+                        <h4>{{data.name_full}}</h4>
                     </div>
-                    <a class="button button--aqua hidden-xs" href="http://ape.nzix.net/" target="_blank">Website</a>
+                    <a class="button button--aqua hidden-xs" href="{{data.website}}" target="_blank">Website</a>
                 </div>
             </div>
         </div>
@@ -17,16 +17,16 @@
                 <div class="subheader-bar">
                     <div class="row">
                         <div class="col-sm-3">
-                            <strong>Tech Email:</strong> <a href="/cdn-cgi/l/email-protection">[email&#160;protected]</a>
+                            <strong>Tech Email:</strong> {{data.tech_email}}
                         </div>
                         <div class="col-sm-3">
-                            <strong>Tech Phone:</strong> Unkown
+                            <strong>Tech Phone:</strong> {{data.tech_phone}}
                         </div>
                         <div class="col-sm-3">
-                            <strong>Policy Email:</strong> <a href="/cdn-cgi/l/email-protection">[email&#160;protected]</a>
+                            <strong>Policy Email:</strong> {{data.policy_email}}
                         </div>
                         <div class="col-sm-3">
-                            <strong>Policy Phone:</strong> Unkown
+                            <strong>Policy Phone:</strong> {{data.policy_phone}}
                         </div>
                     </div>
                 </div>
@@ -42,55 +42,43 @@
                                 <div class="col-sm-6">
                                     <div class="line-info">
                                         <h4 class="inline">Name:</h4>
-                                        <span>APE</span>
+                                        <span>{{data.name}}</span>
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">Full Name:</h4>
-                                        <span>Auckland Peering Exchange</span>
+                                        <span>{{data.name_full}}</span>
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">IX Website:</h4>
                                         <span>
-                                            <a href="http://ape.nzix.net/" target="_blank">
-                                                http://ape.nzix.net/
-                                            </a>
+                                            <a href="{{data.website}}" target="_blank">{{data.website}}</a>
                                         </span>
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">City:</h4>
-                                        <span>Auckland</span>
+                                        <span>{{data.city}}</span>
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">Country:</h4>
-                                        <span>New Zealand</span>
+                                        <span>{{data.country_code}}</span>
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">Members:</h4>
-                                        <span>45</span>
+                                        <span>{{data.members_count}}</span>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="line-info">
                                         <h4 class="inline">Tech Email:</h4>
-                                        <span>
-                                            <a href="/cdn-cgi/l/email-protection#b9c9dcdccbd0d7def9dad0cdc0d5d0d7d297dad697d7c3">
-                                                <span class="__cf_email__" data-cfemail="f2829797809b9c95b2919b868b9e9b9c99dc919ddc9c88">[email&#160;protected]</span>
-                                            </a>
-                                        </span>
+                                        <span>{{data.tech_email}}</span>
                                     </div>
                                     <div class="line-info">
-                                        <h4 class="inline">Policy Phone:</h4>
-                                        <span>
-                                            <a href="/cdn-cgi/l/email-protection#5020353522393e3710333924293c393e3b7e333f7e3e2a">
-                                                <span class="__cf_email__" data-cfemail="a7d7c2c2d5cec9c0e7c4ced3decbcec9cc89c4c889c9dd">[email&#160;protected]</span>
-                                            </a>
-                                        </span>
+                                        <h4 class="inline">Tech Phone:</h4>
+                                        <span>{{data.tech_phone}}</span>
                                     </div>
                                 </div>
                             </div>
-
                             <hr />
-
                             <h3>Members</h3>
                             <div role="tabpanel" class="tab-pane active" id="table-peers-v4">
                                 <table class="table table-hover">
@@ -105,13 +93,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="flag"><img src="https://bgpview.io/assets/flags/shiny/32/EU.png" title="European Union" alt="European Union (EU) Flag" /></td>
-                                            <td><a href="https://bgpview.io/asn/20940">AS20940</a></td>
-                                            <td>Akamai International B.V.</td>
-                                            <td class="hidden-sm hidden-xs"><a href="https://bgpview.io/ip/192.203.154.177">192.203.154.177</a></td>
-                                            <td class="hidden-sm hidden-xs"><a href="https://bgpview.io/ip/2001:7fa:4:c0cb::9ab1">2001:7fa:4:c0cb::9ab1</a></td>
-                                            <td class="port-speed">10 Gbps</td>
+                                        <tr ng-repeat="item in data.members">
+                                            <td class="flag">
+                                                <img
+                                                src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code}}.png"
+                                                title="{{item.country_code}}"
+                                                alt="{{item.country_code}}" />
+                                            </td>
+                                            <td>
+                                                <a href ng-click="getAsn({asn:item.asn})" style="cursor:pointer;">AS{{item.asn}}</a>
+                                            </td>
+                                            <td>{{item.description}}</td>
+                                            <td>
+                                                <a href ng-click="getIp({ip:item.ipv4_address})">{{item.ipv4_address}}</a>
+                                            </td>
+                                            <td>
+                                                <a href ng-click="getIp({ip:item.ipv6_address})">{{item.ipv6_address}}</a>
+                                            </td>
+                                            <td>{{item.speed | formatSpeed}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

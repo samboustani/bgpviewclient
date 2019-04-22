@@ -1,21 +1,21 @@
 'use strict';
 
-app.controller('ip', ['$scope', '$http', function($scope, $http) {
+app.controller('ix', ['$scope', '$http', function($scope, $http) {
 
     
 }])
-.directive('ipDetails', function() {
+.directive('ixDetails', function() {
     return {
         restrict: 'E',
         scope: {
             data: '=',
             getAsn: '&',
-            getPrefix: '&'
+            getIp: '&'
         },
         link: function (scope, elm, attr) {
             scope.$watch('data', function(newValue, oldValue) {
             }, true);
         },
-        templateUrl: 'ip.html'
+        templateUrl: 'ix.html'
     };
 });
