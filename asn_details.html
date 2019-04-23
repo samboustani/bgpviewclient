@@ -5,7 +5,7 @@
         <div class="header-bar">
           <img
             class="pull-left title-flag"
-            src="https://bgpview.io/assets/flags/shiny/64/{{data.asn.rir_allocation.country_code}}.png"
+            src="https://bgpview.io/assets/flags/shiny/64/{{data.asn.rir_allocation.country_code | countryUnknown}}.png"
             alt="{{data.asn.rir_allocation.country_code}}"
             title="{{data.asn.rir_allocation.country_code}}" />
           <div class="title-text pull-left">
@@ -25,7 +25,7 @@
               <strong>Number of Prefixes:</strong> {{data.ipv4_prefixes.length}}
             </div>
             <div class="col-sm-3">
-              <strong>Traffic Estimation:</strong> {{data.asn.traffic_estimation}}
+              <strong>Traffic Estimation:</strong> {{data.asn.traffic_estimation | nullValue}}
             </div>
           </div>
         </div>
@@ -48,6 +48,7 @@
                   </li>
                   <li><a id="nav-downstreams" href ng-click="showTab('downstreams')" ng-class="{selected: tab == 'downstreams'}">Downstreams</a></li>
                   <li><a id="nav-graph" href ng-click="showTab('graphs')" ng-class="{selected: tab == 'graphs'}">Graphs</a></li>
+                  <li><a id="nav-world" href ng-click="showTab('world')" ng-class="{selected: tab == 'world'}">World Map</a></li>
                   <li><a id="nav-whois" href ng-click="showTab('whois')" ng-class="{selected: tab == 'whois'}">Raw Whois</a></li>
                   <li><a id="nav-ix" href ng-click="showTab('ix')" ng-class="{selected: tab == 'ix'}">IX</a></li>
                 </ul>
@@ -75,7 +76,7 @@
                     <h4 class="inline">Allocated Country:</h4>
                     <span>
                       <img
-                        src="https://bgpview.io/assets/flags/shiny/24/{{data.asn.rir_allocation.country_code}}.png"
+                        src="https://bgpview.io/assets/flags/shiny/24/{{data.asn.rir_allocation.country_code | countryUnknown}}.png"
                         alt="{{data.asn.rir_allocation.country_code}}"
                         title="{{data.asn.rir_allocation.country_code}}" />
                     </span>
@@ -84,11 +85,11 @@
                 <div class="col-sm-6">
                     <div class="line-info">
                       <h4 class="inline">Traffic Estimation:</h4>
-                      <span>{{data.asn.traffic_estimation}}</span>
+                      <span>{{data.asn.traffic_estimation | nullValue}}</span>
                     </div>
                     <div class="line-info">
                       <h4 class="inline">Traffic Ratio:</h4>
-                      <span>{{data.asn.traffic_ratio}}</span>
+                      <span>{{data.asn.traffic_ratio | nullValue}}</span>
                     </div>
                     <div class="line-info">
                       <h4 class="inline">Internet Exchanges:</h4>
@@ -96,7 +97,7 @@
                     </div>
                     <div class="line-info">
                       <h4 class="inline">Website:</h4>
-                      <span>{{data.asn.website}}</span>
+                      <span>{{data.asn.website | nullValue}}</span>
                     </div>
                 </div>
               </div>
@@ -194,7 +195,7 @@
                       <tr ng-repeat="prefix in data.ipv4_prefixes">
                         <td class="flag">
                           <img
-                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code | countryUnknown}}.png"
                             title="{{prefix.country_code}}"
                             alt="{{prefix.country_code}}" />
                         </td>
@@ -229,7 +230,7 @@
                         <tr ng-repeat="prefix in data.ipv6_prefixes">
                             <td class="flag">
                               <img
-                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code | countryUnknown}}.png"
                                 title="{{prefix.country_code}}"
                                 alt="{{prefix.country_code}}" />
                             </td>
@@ -274,12 +275,12 @@
                       <tr ng-repeat="peer in data.asn_ip4peers">
                         <td class="flag">
                           <img
-                            src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code}}.png"
+                            src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code | countryUnknown}}.png"
                             title="{{peer.country_code}}"
                             alt="{{peer.country_code}}" />
                         </td>
                         <td>
-                          <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
+                          <a href ng-click="showTab('asn'); getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
                         </td>
                         <td class="hidden-xs">{{peer.name}}</td>
                         <td>{{peer.description}}</td>
@@ -301,12 +302,12 @@
                           <tr ng-repeat="peer in data.asn_ip6peers">
                               <td class="flag">
                                 <img
-                                  src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code}}.png"
+                                  src="https://bgpview.io/assets/flags/shiny/32/{{peer.country_code | countryUnknown}}.png"
                                   title="{{peer.country_code}}"
                                   alt="{{peer.country_code}}" />
                               </td>
                               <td>
-                                <a href ng-click="getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
+                                <a href ng-click="showTab('asn'); getAsn({asn:peer.asn})" style="cursor:pointer;">AS{{peer.asn}}</a>
                               </td>
                               <td class="hidden-xs">{{peer.name}}</td>
                               <td>{{peer.description}}</td>
@@ -340,11 +341,13 @@
                       <tr ng-repeat="stream in data.asn_ip4upstreams">
                         <td class="flag">
                           <img
-                            src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                            src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code | countryUnknown}}.png"
                             title="{{stream.country_code}}"
                             alt="{{stream.country_code}}" />
                         </td>
-                        <td>AS{{stream.asn}}</td>
+                        <td>
+                          <a href ng-click="showTab('asn'); getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
+                        </td>
                         <td class="hidden-xs">{{stream.name}}</td>
                         <td>{{stream.description}}</td>
                       </tr>
@@ -395,11 +398,13 @@
                             <tr ng-repeat="stream in data.asn_ip6upstreams">
                               <td class="flag">
                                 <img
-                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code | countryUnknown}}.png"
                                   title="{{stream.country_code}}"
                                   alt="{{stream.country_code}}" />
                               </td>
-                              <td>AS{{stream.asn}}</td>
+                              <td>
+                                <a href ng-click="showTab('asn'); getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
+                              </td>
                               <td class="hidden-xs">{{stream.name}}</td>
                               <td>{{stream.description}}</td>
                             </tr>
@@ -450,12 +455,12 @@
                               <tr ng-repeat="stream in data.asn_ip4downstreams">
                                 <td class="flag">
                                   <img
-                                    src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                                    src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code | countryUnknown}}.png"
                                     title="{{stream.country_code}}"
                                     alt="{{stream.country_code}}" />
                                 </td>
                                 <td>
-                                  <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
+                                  <a href ng-click="showTab('asn'); getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
                                 </td>
                                 <td class="hidden-xs">{{stream.name}}</td>
                                 <td>{{stream.description}}</td>
@@ -477,12 +482,12 @@
                             <tr ng-repeat="stream in data.asn_ip6downstreams">
                               <td class="flag">
                                 <img
-                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code}}.png"
+                                  src="https://bgpview.io/assets/flags/shiny/32/{{stream.country_code | countryUnknown}}.png"
                                   title="{{stream.country_code}}"
                                   alt="{{stream.country_code}}" />
                               </td>
                               <td>
-                                <a href ng-click="getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
+                                <a href ng-click="showTab('asn'); getAsn({asn:stream.asn})" style="cursor:pointer;">AS{{stream.asn}}</a>
                               </td>
                               <td class="hidden-xs">{{stream.name}}</td>
                               <td>{{stream.description}}</td>
@@ -495,8 +500,185 @@
             <div id="content-graph" class="col-sm-10 box" ng-show="tab == 'graphs'">
               <img src="{{data.asn_upstreams_graph}}" style="max-width:95%;">
             </div>
+            <div id="content-map" class="col-sm-10 box-xs hidden-sm" ng-show="tab == 'world'">
+              <!-- <div id="map"></div>
+              <script>
+                function initMap() {
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: 25, lng: 25},
+                        zoom: 2,
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.TOP_LEFT
+                        },
+                        disableDefaultUI: true
+                    });
+            
+                    var styles = [
+                        {
+                            "featureType": "poi",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "featureType": "road",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "featureType": "transit",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "elementType": "labels",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "featureType": "administrative.province"  },{
+                            "featureType": "administrative.locality"  },{
+                            "featureType": "administrative.neighborhood"  },{
+                            "featureType": "administrative.land_parcel"  },{
+                            "featureType": "administrative.province",
+                            "elementType": "geometry",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "featureType": "landscape.man_made",
+                            "stylers": [
+                                { "visibility": "off" }
+                            ]
+                        },{
+                            "featureType": "landscape.natural",
+                            "stylers": [
+                                { "visibility": "on" },
+                                { "color": "#397ea8" }
+                            ]
+                        },{
+                            "featureType": "administrative.country",
+                            "stylers": [
+                                { "color": "#ffffff" }
+                            ]
+                        },{
+                        }
+                    ];
+            
+                    map.setOptions({styles: styles});
+            
+                    setMarkers(map);
+                }
+            
+                var resources = [];
+                var locationList = [];
+                var prefixObject = {
+                  'type': 'prefix',
+                  'url': 'https://bgpview.io/prefix/{{asndata.ipv4_prefixes[0].prefix}}',
+                  'prefix': '{{asndata.ipv4_prefixes[0].prefix}}',
+                  'name': '{{asndata.ipv4_prefixes[0].name}}',
+                  'description': '{{asndata.ipv4_prefixes[0].description}}',
+                  'location': '{{asndata.ipv4_prefixes[0].country_code}}',
+                  'country_code': '{{asndata.ipv4_prefixes[0].country_code}}',
+                  'lat': -30.56,
+                  'lng': 22.94
+                };
+
+                resources.push(prefixObject);
+                        
+                function setMarkers(map) {
+                    // Adds markers to the map.            
+                    var bounds = new google.maps.LatLngBounds();
+                    var seenCoordinates = [];
+
+                    for (var i = 0; i < resources.length; i++) {
+                        var resource = resources[i];
+                        // Skips all zero coordinates and AP/EU regions
+                        if (resource.country_code == 'EU' || resource.country_code == 'AP' || (resource.lat == 0 && resource.lng == 0)) {
+                            continue;
+                        }
+            
+                        if (typeof seenCoordinates[resource.lat + '~' + resource.lng] == 'undefined') {
+                            var html = generateMapHtml(resource);
+                            // Add current resource to seen long/lat list
+                            seenCoordinates[resource.lat + '~' + resource.lng] = {'html': html, 'lat': resource.lat, 'lng': resource.lng, 'location': resource.location, 'type': resource.type};
+                        } else {
+                            var html = seenCoordinates[resource.lat + '~' + resource.lng].html + '<hr />' + generateMapHtml(resource);
+                            seenCoordinates[resource.lat + '~' + resource.lng].html = html;
+                        }
+                    }
+                        
+                    for(key in seenCoordinates){
+                        var resource = seenCoordinates[key];
+            
+                        var image = {
+                            url: 'https://bgpview.io/assets/icons/prefix_marker.png',
+                            // This marker is 20 pixels wide by 32 pixels high.
+                            size: new google.maps.Size(24, 24),
+                            // The origin for this image is (0, 0).
+                            origin: new google.maps.Point(0, 0),
+                            // The anchor for this image is the base of the flagpole at (0, 32).
+                            anchor: new google.maps.Point(12, 24)
+                        };
+            
+                        var html = '<div class="map-popup">' + resource.html + '</div>';
+            
+                        var infowindow = new google.maps.InfoWindow({
+                            content: html
+                        });
+                        var marker = new google.maps.Marker({
+                            position: {lat: resource.lat, lng: resource.lng},
+                            map: map,
+                            icon: image,
+                            html: html,
+                            title: resource.name + ' - ' + resource.location,
+                        });
+            
+                        // Add the new popup to click
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.setContent(this.html);
+                            infowindow.open(map, this);
+                        });
+            
+                        var point = new google.maps.LatLng(resource.lat, resource.lng);
+            
+                        bounds.extend(point);
+                    }
+            
+                    map.fitBounds(bounds);
+            
+                    // Limit the zoom level
+                    google.maps.event.addListener(map, 'zoom_changed', function() {
+                        if (map.getZoom() > 5) {
+                            map.setZoom(5);
+                        } else if (map.getZoom() < 1) {
+                            map.setZoom(1);
+                        }
+                    });
+                }
+            
+                function generateMapHtml(resource)
+                {
+                    if (resource.type == 'ix') {
+                        var html = '<img class="map-flag" src="https://bgpview.io/assets/flags/shiny/24/' + resource.country_code +'.png" title="' + resource.location + '" /> ~ <a href="' + resource.url + '"><strong>' + resource.name + '</strong></a>';
+                        if (resource.name != resource.description) {
+                            html += '<br />' + resource.description;
+                        }
+                    } else if (resource.type == 'prefix') {
+                        var html = '<img class="map-flag" src="https://bgpview.io/assets/flags/shiny/24/' + resource.country_code +'.png" title="' + resource.location + '" /> ~ <a href="' + resource.url + '"><strong>' + resource.prefix + '</strong></a>';
+                        html += '<br />' + resource.description;
+                        if (resource.name != resource.description) {
+                            html += '<br />' + resource.name;
+                        }
+                    }
+            
+                    return html;
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1TnzGHq-H6KXmB0AVjE8D_SYXHoQYHpE"></script> -->
+            </div>
             <div id="content-whois" class="col-sm-10 box" ng-show="tab == 'whois'">
-              <pre></pre>
+              <pre>{{data.whois}}</pre>
             </div>
             <div id="content-ix" class="col-sm-10 box" ng-show="tab == 'ix'">
               <div role="tabpanel" class="tab-pane active" id="table-ix">
@@ -515,7 +697,7 @@
                     <tr ng-repeat="ix in data.asn_ixs">
                       <td class="flag">
                         <img
-                          src="https://bgpview.io/assets/flags/shiny/32/{{ix.country_code}}.png"
+                          src="https://bgpview.io/assets/flags/shiny/32/{{ix.country_code | countryUnknown}}.png"
                           title="{{ix.country_code}}"
                           alt="{{ix.country_code}}" />
                       </td>

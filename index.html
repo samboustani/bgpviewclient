@@ -21,20 +21,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="https://bgpview.io">
-                    <img src="https://bgpview.io/assets/logo_white.png" alt="Logo Header" /></a>
+                    <a class="navbar-brand" href="https://www.logicweb.com">
+                    <img src="https://www.logicweb.com/wp-content/uploads/2016/01/logo.png" alt="Logo Header" /></a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <div class="col-sm-4 col-md-4 pull-right" style="top: 8px;">
                         <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Name, ASN, IP, Prefix"
-                            name="query_term2" id="query-term2" ng-model="queryTerm" />
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" ng-click="search()">
-                            <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
+                            <input type="text" class="form-control" placeholder="Name, ASN, IP, Prefix"
+                                name="query_term2" id="query-term2" ng-model="queryTerm"
+                                ng-keypress="($event.which == 13) ? search() : return" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" ng-click="search()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,13 +45,15 @@
         <div class="container centered-page" ng-show="showIndex">
             <div class="row main-logo">
                 <div class="text-center">
-                    <img src="https://www.bgpview.io/assets/logo.png" height="100">
+                    <img src="https://www.logicweb.com/wp-content/uploads/2016/01/logo-footer.png" height="100">
                 </div>
-            </div>      
+            </div>
             <div class="row">
                 <div class="col-lg-push-3 col-lg-6">
                     <div class="input-group">
-                      <input type="text" name="query_term1" id="query_term1" ng-model="queryTerm" class="form-control" placeholder="Search for any ASN, IP, Prefix or Resource name">
+                      <input type="text" name="query_term1" id="query_term1" ng-model="queryTerm" 
+                      ng-keypress="($event.which == 13) ? search() : return"
+                      class="form-control" placeholder="Search for any ASN, IP, Prefix or Resource name" autofocus>
                       <span class="input-group-btn">
                           <button class="btn btn-default" ng-click="search()">Search!</button>
                       </span>

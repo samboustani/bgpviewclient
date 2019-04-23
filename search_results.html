@@ -50,7 +50,7 @@
                       <tr ng-repeat="item in data.asns">
                         <td class="flag">
                           <img
-                            src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code}}.png"
+                            src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code | countryUnknown}}.png"
                             title="{{item.country_code}}"
                             alt="{{item.country_code}}"
                           />
@@ -81,7 +81,7 @@
                       <tr ng-repeat="prefix in data.ipv4prefixes">
                         <td class="flag">
                           <img
-                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                            src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code | countryUnknown}}.png"
                             title="{{prefix.country_code}}"
                             alt="{{prefix.country_code}}" />
                         </td>
@@ -114,7 +114,7 @@
                         <tr ng-repeat="prefix in data.ipv6prefixes">
                             <td class="flag">
                               <img
-                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code}}.png"
+                                src="https://bgpview.io/assets/flags/shiny/32/{{prefix.country_code | countryUnknown}}.png"
                                 title="{{prefix.country_code}}"
                                 alt="{{prefix.country_code}}" />
                             </td>

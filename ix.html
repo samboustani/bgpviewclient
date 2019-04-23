@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="header-bar">
-                    <img class="pull-left title-flag" src="https://bgpview.io/assets/flags/shiny/64/{{data.country_code}}.png" title="{{data.country_code}}" alt="{{data.country_code}}" />
+                    <img class="pull-left title-flag" src="https://bgpview.io/assets/flags/shiny/64/{{data.country_code | countryUnknown}}.png" title="{{data.country_code}}" alt="{{data.country_code}}" />
                     <div class="title-text pull-left ">
                         <h2>{{data.name}}</h2>
                         <h4>{{data.name_full}}</h4>
@@ -96,7 +96,7 @@
                                         <tr ng-repeat="item in data.members">
                                             <td class="flag">
                                                 <img
-                                                src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code}}.png"
+                                                src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code | countryUnknown}}.png"
                                                 title="{{item.country_code}}"
                                                 alt="{{item.country_code}}" />
                                             </td>

@@ -76,11 +76,17 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             .then(function(data) {
                 $scope.prefixdata = {
                     prefix: {},
-                    ipcount: 0
+                    ipcount: 0,
+                    whois: ''
                 };
 
                 $scope.prefixdata.prefix = data;
                 $scope.prefixdata.prefix.rir_allocation.date_allocated = new Date($scope.prefixdata.prefix.rir_allocation.date_allocated.replace(/-/g,"/"));
+
+                getWhoIs(prefix, 'prefix')
+                .then(function(data) {
+                    $scope.prefixdata.whois = data;
+                });
 
                 getSearch($scope.prefixdata.prefix.name)
                 .then(function(data) {
@@ -128,7 +134,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
         $scope.asndata = {
             asn: {},
             asns: [],
-            asn_ipv4addresses: 0,
+            asn_ipv4addresses: '0',
             ipv4_prefixes: [],
             ipv6_prefixes: [],
             asn_ip4peers: [],
@@ -140,7 +146,8 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             asn_upstreams_graph: '',
             asn_ip4downstreams: [],
             asn_ip6downstreams: [],
-            asn_ixs: []
+            asn_ixs: [],
+            whois: ''
         };
 
         populate(asn);
@@ -162,8 +169,14 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             getAsnPeers(asn), 
             getAsnUpstreams(asn), 
             getAsnDownstreams(asn),
-            getAsnIXs(asn) //getWhoIs(asn)
+            getAsnIXs(asn)
         ]).then(function(data) {
+
+            getWhoIs(asn, 'asn')
+            .then(function(data) {
+                $scope.asndata.whois = data.data;
+            });
+
             $scope.showIndex = false;
             $scope.showSearch = false;
             $scope.showASN = true;
@@ -179,7 +192,7 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             .then(function (response) {
                 $scope.asndata.asn = response.data.data;
                 $scope.asndata.asn.rir_allocation.date_allocated = new Date($scope.asndata.asn.rir_allocation.date_allocated.replace(/-/g,"/"));
-                $scope.asndata.asn_ipv4addresses = $scope.searchdata.ipv4count;
+                $scope.asndata.asn_ipv4addresses = $scope.searchdata.ipv4count == 200 ? '200+' : $scope.searchdata.ipv4count;
                 d.resolve(true);
             });
             return d.promise;
@@ -242,12 +255,13 @@ app.controller('home', ['$scope', 'apiServices', '$q', function($scope, apiServi
             return d.promise;
     }
 
-    function getWhoIs(asn) {
-        apiServices.getWhoIs(asn)
+    function getWhoIs(queryText, queryType) {
+        var d = $q.defer();
+        apiServices.getWhoIs(queryText, queryType)
             .then(function (response) {
-                //console.log(response);
-                //https://www.arin.net/resources/registry/whois/rdap/#rdap-urls
+                d.resolve(JSON.stringify(response.data, null, 4));
             });
+            return d.promise;
     }
 
     function getPrefixDetails(prefix) {

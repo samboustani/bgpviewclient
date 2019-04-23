@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="header-bar">
-                    <img class="pull-left title-flag" src="https://www.bgpview.io/assets/flags/shiny/64/{{data.prefix.country_codes.whois_country_code}}.png" title="{{data.prefix.country_codes.whois_country_code}}" alt="{{data.prefix.country_codes.whois_country_code}}" />
+                    <img class="pull-left title-flag" src="https://www.bgpview.io/assets/flags/shiny/64/{{data.prefix.country_codes.whois_country_code | countryUnknown}}.png" title="{{data.prefix.country_codes.whois_country_code}}" alt="{{data.prefix.country_codes.whois_country_code}}" />
                     <div class="title-text pull-left ">
                         <h2>{{data.prefix.prefix}}</h2>
                         <h4>{{data.prefix.description_short}}</h4>
@@ -22,7 +22,7 @@
                             <strong>Parent Prefix:</strong> {{data.prefix.rir_allocation.prefix}}
                         </div>
                         <div class="col-sm-3">
-                            <strong>Abuse:</strong> {{data.prefix.abuse_contacts[0]}}
+                            <strong>Abuse:</strong> {{data.prefix.abuse_contacts[0] | nullValue}}
                         </div>
                         <div class="col-sm-3">
                             <strong>RIR:</strong> {{data.prefix.rir_allocation.rir_name}}
@@ -60,7 +60,7 @@
                                         <tr ng-repeat="item in data.prefix.asns">
                                             <td class="flag">
                                                 <img
-                                                src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code}}.png"
+                                                src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code | countryUnknown}}.png"
                                                 title="{{item.country_code}}"
                                                 alt="{{item.country_code}}" />
                                             </td>
@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">Country:</h4>
-                                        <img src="https://www.bgpview.io/assets/flags/shiny/24/{{data.prefix.country_codes.whois_country_code}}.png" title="{{data.prefix.country_codes.whois_country_code}}" alt="{{data.prefix.country_codes.whois_country_code}}" />
+                                        <img src="https://www.bgpview.io/assets/flags/shiny/24/{{data.prefix.country_codes.whois_country_code | countryUnknown}}.png" title="{{data.prefix.country_codes.whois_country_code}}" alt="{{data.prefix.country_codes.whois_country_code}}" />
                                     </div>
                                     <div class="line-info">
                                         <h4 class="inline">IP Addresses:</h4>
@@ -118,7 +118,7 @@
                                     <div class="line-info">
                                         <h4 class="inline">Allocated Country:</h4>
                                         <span>
-                                            <img src="https://www.bgpview.io/assets/flags/shiny/24/{{data.prefix.rir_allocation.country_code}}.png" title="{{data.prefix.rir_allocation.country_code}}" alt="{{data.prefix.rir_allocation.country_code}}" />
+                                            <img src="https://www.bgpview.io/assets/flags/shiny/24/{{data.prefix.rir_allocation.country_code | countryUnknown}}.png" title="{{data.prefix.rir_allocation.country_code}}" alt="{{data.prefix.rir_allocation.country_code}}" />
                                         </span>
                                     </div>
                                 </div>
@@ -156,7 +156,6 @@
                         </div>
                         <div id="content-routing" class="col-sm-10 box" ng-show="tab == 'routing'">
                             <div role="tabpanel" class="tab-pane active" id="table-routing">
-                                <!-- <h3> <a href="https://www.bgpview.io/asn/12025">AS12025</a> IO Capital Princess, LLC - Prefix Upstreams</h3> -->
                                 <div class="row">
                                     <table class="table table-hover">
                                         <thead>
@@ -171,7 +170,7 @@
                                             <tr ng-repeat="item in data.prefix.asns">
                                                 <td class="flag">
                                                     <img
-                                                    src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code}}.png"
+                                                    src="https://bgpview.io/assets/flags/shiny/32/{{item.country_code | countryUnknown}}.png"
                                                     title="{{item.country_code}}"
                                                     alt="{{item.country_code}}" />
                                                 </td>
@@ -185,7 +184,7 @@
                             </div>
                         </div>
                         <div id="content-whois" class="col-sm-10 box" ng-show="tab == 'whois'">
-                            <pre># ARIN WHOIS</pre>
+                            <pre>{{data.whois}}</pre>
                         </div>
                     </div>
                 </div>

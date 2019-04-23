@@ -46,10 +46,18 @@ app.factory('apiServices', ['$http', function($http) {
     };
 
     // WhoIs
-    apiServices.getWhoIs = function(asn) {
-        return $http.get('https://rdap.arin.net/registry/autnum/' + asn);
-        //console.log(response);
+    apiServices.getWhoIs = function(queryText, queryType) {
         //https://www.arin.net/resources/registry/whois/rdap/#rdap-urls
+        switch(queryType) {
+            case "asn":
+                return $http.get('https://rdap.arin.net/registry/autnum/' + queryText);
+            case "prefix":
+                return $http.get('https://rdap.arin.net/bootstrap/ip/' + queryText);
+            case "domain":
+                return $http.get('https://rdap.arin.net/registry/domain/' + queryText);
+            default:
+                return null;
+        }
     };
 
     // IP details
